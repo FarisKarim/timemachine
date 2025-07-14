@@ -1,11 +1,17 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Lighting } from './Lighting';
 import { Timeline } from './Timeline';
 import { Camera } from './Camera';
+import { preloadModels } from '../../utils/modelLoader';
 
-export const Scene = ({ onObjectClick, scrollProgress, selectedObject, isZoomedIn, isMobile }) => {
+export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, selectedObject, isZoomedIn, isMobile }) => {
+  useEffect(() => {
+    // Preload all models
+    preloadModels();
+  }, []);
+
   return (
     <div className="fixed inset-0 w-full h-full">
       <Canvas
@@ -23,7 +29,8 @@ export const Scene = ({ onObjectClick, scrollProgress, selectedObject, isZoomedI
       >
         <Suspense fallback={null}>
           <Camera 
-            scrollProgress={scrollProgress} 
+            scrollProgress={scrollProgress}
+            scrollProgressRef={scrollProgressRef}
             selectedObject={selectedObject}
             isZoomedIn={isZoomedIn}
           />
@@ -60,12 +67,6 @@ export const Scene = ({ onObjectClick, scrollProgress, selectedObject, isZoomedI
             isZoomedIn={isZoomedIn}
           />
           
-          {/* Dynamic fog based on zoom state */}
-          <fog attach="fog" args={[
-            '#1a1a2e', 
-            isZoomedIn ? 5 : 15, 
-            isZoomedIn ? 15 : 40
-          ]} />
         </Suspense>
       </Canvas>
     </div>

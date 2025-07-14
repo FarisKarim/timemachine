@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Scene } from './components/3d/Scene';
+import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
 import { useAudioManager } from './hooks/useAudioManager';
 import { useMobileDetection } from './hooks/useMobileDetection';
 import { useTouchControls } from './hooks/useTouchControls';
@@ -9,6 +10,7 @@ function App() {
   const [selectedObject, setSelectedObject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+  const scrollProgressRef = useRef(0);
   const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound } = useAudioManager();
   const { isMobile, isTablet, isDesktop, orientation } = useMobileDetection();
 
@@ -30,6 +32,16 @@ function App() {
     console.log('Clicked object:', object.name);
   };
 
+  const handleGameSelect = (game) => {
+    console.log('Selected game:', game.title);
+    // Future: Could trigger additional animations or effects
+  };
+
+  const handleGameAudio = (gameId) => {
+    // Play game-specific audio using the existing sound system
+    playSound('object', gameId);
+  };
+
   const closeModal = () => {
     setIsZoomedIn(false);
     // Delay clearing selected object to allow zoom-out animation
@@ -38,28 +50,41 @@ function App() {
     }, 800);
   };
 
+
   useEffect(() => {
     const handleWheel = (e) => {
-      // Prevent default scroll behavior
+      // Only handle timeline scroll when NOT zoomed in
+      if (isZoomedIn) return;
+      
+      // Prevent default scroll behavior for timeline
       e.preventDefault();
       
-      // Update scroll progress based on wheel direction
-      setScrollProgress(prev => {
-        const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
-        const newProgress = prev + delta * 0.001;
-        return Math.max(0, Math.min(1, newProgress));
-      });
+      // Simple direct scroll with balanced sensitivity
+      const rawDelta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+      const normalizedDelta = Math.sign(rawDelta) * Math.min(Math.abs(rawDelta), 100);
+      const sensitivity = 0.001; // Much lower - was 0.005
+      const deltaPosition = normalizedDelta * sensitivity;
+      
+      // Update position directly using ref to avoid stale closure
+      const currentProgress = scrollProgressRef.current;
+      const newProgress = Math.max(0, Math.min(1, currentProgress + deltaPosition));
+      setScrollProgress(newProgress);
+      scrollProgressRef.current = newProgress;
     };
 
     const handleKeyDown = (e) => {
       switch(e.key) {
         case 'ArrowLeft':
-          e.preventDefault();
-          setScrollProgress(prev => Math.max(0, prev - 0.1));
+          if (!isZoomedIn) {
+            e.preventDefault();
+            setScrollProgress(prev => Math.max(0, prev - 0.1));
+          }
           break;
         case 'ArrowRight':
-          e.preventDefault();
-          setScrollProgress(prev => Math.min(1, prev + 0.1));
+          if (!isZoomedIn) {
+            e.preventDefault();
+            setScrollProgress(prev => Math.min(1, prev + 0.1));
+          }
           break;
         case 'Escape':
           e.preventDefault();
@@ -78,7 +103,7 @@ function App() {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [isZoomedIn]);
 
   return (
     <div className="relative overflow-hidden">
@@ -87,6 +112,7 @@ function App() {
         <Scene 
           onObjectClick={handleObjectClick} 
           scrollProgress={scrollProgress}
+          scrollProgressRef={scrollProgressRef}
           selectedObject={selectedObject}
           isZoomedIn={isZoomedIn}
           isMobile={isMobile}
@@ -206,38 +232,29 @@ function App() {
               </div>
             </div>
             
-            {/* Memory Content */}
-            <div className="flex-1">
-              <h4 className={`font-semibold mb-4 text-white/90 ${
-                isMobile ? 'text-lg' : 'text-xl'
-              }`}>
-                {selectedObject.memory.title}
-              </h4>
-              <p className={`opacity-80 leading-relaxed ${
-                isMobile ? 'text-base' : 'text-lg'
-              }`}>
-                {selectedObject.memory.description}
-              </p>
+            {/* Memory Content - Enhanced for Game Boy */}
+            <div className="flex-1 overflow-y-auto pr-4">
+              {selectedObject.type === 'gameboy' ? (
+                <GameBoyMemoryCapsule 
+                  onGameSelect={handleGameSelect}
+                  onAudioPlay={handleGameAudio}
+                />
+              ) : (
+                <div>
+                  <h4 className={`font-semibold mb-4 text-white/90 ${
+                    isMobile ? 'text-lg' : 'text-xl'
+                  }`}>
+                    {selectedObject.memory.title}
+                  </h4>
+                  <p className={`opacity-80 leading-relaxed ${
+                    isMobile ? 'text-base' : 'text-lg'
+                  }`}>
+                    {selectedObject.memory.description}
+                  </p>
+                </div>
+              )}
             </div>
             
-            {/* Interactive hints */}
-            <div className="mt-auto pt-6 md:pt-8 border-t border-white/10">
-              <div className="text-sm opacity-60 space-y-2">
-                {isMobile ? (
-                  <>
-                    <p>• Pinch to zoom</p>
-                    <p>• Drag to rotate</p>
-                    <p>• Tap back button to return</p>
-                  </>
-                ) : (
-                  <>
-                    <p>• Click and drag to rotate</p>
-                    <p>• Scroll to zoom in/out</p>
-                    <p>• Press ESC to return</p>
-                  </>
-                )}
-              </div>
-            </div>
           </div>
         )}
       </div>

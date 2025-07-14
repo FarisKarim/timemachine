@@ -1,7 +1,9 @@
+import { Environment } from '@react-three/drei';
+
 export const Lighting = ({ scrollProgress, isZoomedIn }) => {
   // Dynamic lighting that changes from dawn to dusk as user scrolls
-  const ambientIntensity = isZoomedIn ? 0.6 : (0.4 + scrollProgress * 0.3);
-  const directionalIntensity = isZoomedIn ? 1.2 : (0.8 - scrollProgress * 0.3);
+  const ambientIntensity = isZoomedIn ? 0.8 : (0.6 + scrollProgress * 0.3);
+  const directionalIntensity = isZoomedIn ? 1.5 : (1.0 - scrollProgress * 0.2);
   const sunsetColor = `hsl(${30 + scrollProgress * 30}, 70%, ${70 - scrollProgress * 20}%)`;
 
   return (
@@ -53,6 +55,14 @@ export const Lighting = ({ scrollProgress, isZoomedIn }) => {
           castShadow
         />
       )}
+      
+      {/* Environment mapping for realistic reflections */}
+      <Environment
+        preset={isZoomedIn ? "studio" : "sunset"}
+        background={false}
+        blur={0.5}
+        intensity={isZoomedIn ? 0.5 : 0.3}
+      />
     </>
   );
 };

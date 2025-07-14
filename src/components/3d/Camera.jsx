@@ -3,66 +3,48 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 
-export const Camera = ({ scrollProgress, selectedObject, isZoomedIn }) => {
+export const Camera = ({ scrollProgress, scrollProgressRef, selectedObject, isZoomedIn }) => {
   const cameraRef = useRef();
   const hasZoomedRef = useRef(false);
+  
+  // Instant zoom when object is selected
+  if (isZoomedIn && selectedObject && cameraRef.current && !hasZoomedRef.current) {
+    const objectPos = selectedObject.position;
+    const targetX = objectPos[0];
+    const targetY = objectPos[1] + 2;
+    const targetZ = objectPos[2] + (selectedObject.type === 'gameboy' ? 8 : 4);
+    
+    // Set camera position instantly
+    cameraRef.current.position.set(targetX, targetY, targetZ);
+    cameraRef.current.lookAt(objectPos[0], objectPos[1], objectPos[2]);
+    cameraRef.current.fov = 60;
+    cameraRef.current.updateProjectionMatrix();
+    hasZoomedRef.current = true;
+  }
 
   useFrame((state, delta) => {
-    if (cameraRef.current) {
-      if (isZoomedIn && selectedObject) {
-        // Initial zoom to selected object (only once)
-        const objectPos = selectedObject.position;
-        
-        if (!hasZoomedRef.current) {
-          // Initial camera position for zoom
-          const targetX = objectPos[0];
-          const targetY = objectPos[1] + 2;
-          const targetZ = objectPos[2] + 4;
-          
-          // Smooth cinematic interpolation
-          cameraRef.current.position.x += (targetX - cameraRef.current.position.x) * 0.05;
-          cameraRef.current.position.y += (targetY - cameraRef.current.position.y) * 0.05;
-          cameraRef.current.position.z += (targetZ - cameraRef.current.position.z) * 0.05;
-          
-          // Check if we're close enough to consider zoom complete
-          const distance = cameraRef.current.position.distanceTo(
-            new THREE.Vector3(targetX, targetY, targetZ)
-          );
-          if (distance < 0.1) {
-            hasZoomedRef.current = true;
-          }
-        }
-        
-        // Always look at the selected object
-        cameraRef.current.lookAt(objectPos[0], objectPos[1], objectPos[2]);
-        
-        // Dynamic FOV for dramatic effect
-        const targetFov = 60; // Tighter FOV for intimate view
-        cameraRef.current.fov += (targetFov - cameraRef.current.fov) * 0.05;
-        cameraRef.current.updateProjectionMatrix();
-        
-      } else {
-        // Reset zoom flag
-        hasZoomedRef.current = false;
-        
-        // Normal timeline navigation
-        const targetX = scrollProgress * 15 - 7.5;
-        const targetY = 2 + Math.sin(scrollProgress * Math.PI) * 0.5;
-        const targetZ = 8 - scrollProgress * 2;
-        
-        // Smooth interpolation back to timeline view
-        cameraRef.current.position.x += (targetX - cameraRef.current.position.x) * 0.05;
-        cameraRef.current.position.y += (targetY - cameraRef.current.position.y) * 0.05;
-        cameraRef.current.position.z += (targetZ - cameraRef.current.position.z) * 0.05;
-        
-        // Look at timeline center
-        cameraRef.current.lookAt(targetX, 0, 0);
-        
-        // Restore normal FOV
-        const targetFov = 75;
-        cameraRef.current.fov += (targetFov - cameraRef.current.fov) * 0.05;
-        cameraRef.current.updateProjectionMatrix();
-      }
+    if (cameraRef.current && !isZoomedIn) {
+      // COMPLETELY DISABLE CAMERA WHEN ZOOMED IN - LET ORBITCONTROLS HANDLE EVERYTHING
+      // Reset zoom flag
+      hasZoomedRef.current = false;
+      
+      // Normal timeline navigation - use ref for immediate response
+      const currentProgress = scrollProgressRef?.current ?? scrollProgress;
+      const targetX = currentProgress * 15 - 7.5;
+      const targetY = 2 + Math.sin(currentProgress * Math.PI) * 0.5;
+      const targetZ = 8 - currentProgress * 2;
+      
+      // Instant camera positioning for smooth scrolling
+      cameraRef.current.position.x = targetX;
+      cameraRef.current.position.y = targetY;
+      cameraRef.current.position.z = targetZ;
+      
+      // Look at timeline center
+      cameraRef.current.lookAt(targetX, 0, 0);
+      
+      // Restore normal FOV
+      cameraRef.current.fov = 75;
+      cameraRef.current.updateProjectionMatrix();
     }
   });
 

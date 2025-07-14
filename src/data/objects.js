@@ -1,6 +1,7 @@
 export const nostalgicObjects = [
   {
     id: 'gameboy',
+    type: 'gameboy',
     name: 'Game Boy',
     position: [-8, 0, 0],
     color: '#9CA3AF',
@@ -12,6 +13,7 @@ export const nostalgicObjects = [
   },
   {
     id: 'rubiks-cube',
+    type: 'rubiksCube',
     name: "Rubik's Cube",
     position: [-4, 1, -2],
     color: '#EF4444',
@@ -23,6 +25,7 @@ export const nostalgicObjects = [
   },
   {
     id: 'hot-wheels',
+    type: 'hotWheels',
     name: 'Hot Wheels Car',
     position: [0, -0.5, 1],
     color: '#3B82F6',
@@ -34,6 +37,7 @@ export const nostalgicObjects = [
   },
   {
     id: 'tamagotchi',
+    type: 'tamagotchi',
     name: 'Tamagotchi',
     position: [4, 0.5, -1],
     color: '#F59E0B',
@@ -45,6 +49,7 @@ export const nostalgicObjects = [
   },
   {
     id: 'lego-brick',
+    type: 'lego',
     name: 'LEGO Brick',
     position: [8, -1, 2],
     color: '#10B981',

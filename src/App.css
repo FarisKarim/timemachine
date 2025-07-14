@@ -4,7 +4,7 @@ html, body {
   padding: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: #000000;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
@@ -15,20 +15,21 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #a855f7, #f59e0b);
-  border-radius: 4px;
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #9333ea, #d97706);
+  background: linear-gradient(180deg, #16a34a, #15803d);
 }
 
 /* Text shadow utility */
@@ -95,4 +96,20 @@ canvas:active {
   50% {
     opacity: 0.5;
   }
+}
+
+/* Smooth fade-in animation for Game Boy content */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
 }

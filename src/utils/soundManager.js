@@ -1,4 +1,5 @@
 import { Howl, Howler } from 'howler';
+import { gameboyData } from '../data/gameboyData';
 
 class SoundManager {
   constructor() {
@@ -136,16 +137,51 @@ class SoundManager {
     }
   }
 
+  // Play enhanced Game Boy game-specific audio
+  playGameAudio(gameId) {
+    if (!this.isEnabled) return;
+    this.initializeSounds();
+    
+    const audioCue = gameboyData.audioCues[gameId];
+    if (!audioCue) return;
+    
+    if (audioCue.type === 'sequence') {
+      // Play sequence of tones
+      audioCue.sounds.forEach(sound => {
+        setTimeout(() => {
+          this.generateTone(
+            sound.frequency, 
+            sound.duration, 
+            sound.type || 'square', 
+            0.3
+          );
+        }, sound.delay);
+      });
+    } else if (audioCue.type === 'melody') {
+      // Play simple melody
+      audioCue.notes.forEach((frequency, index) => {
+        setTimeout(() => {
+          this.generateTone(frequency, 0.15, 'square', 0.25);
+        }, index * 150);
+      });
+    }
+  }
+
   playObjectSound(objectId) {
     if (!this.isEnabled) return;
     this.initializeSounds();
     
+    // Check if it's a Game Boy game-specific sound
+    if (gameboyData.audioCues[objectId]) {
+      this.playGameAudio(objectId);
+      return;
+    }
+    
     // Map object IDs to specific generated sounds
     switch(objectId) {
       case 'gameboy':
-        // Classic 8-bit power-on sound
-        this.generateTone(523, 0.1, 'square', 0.4); // C5
-        setTimeout(() => this.generateTone(784, 0.15, 'square', 0.3), 100); // G5
+        // Enhanced Game Boy power-on sound
+        this.playGameAudio('powerOn');
         break;
       case 'lego-brick':
         // Plastic click sounds
