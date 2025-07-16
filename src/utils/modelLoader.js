@@ -15,8 +15,8 @@ export const MODEL_PATHS = {
   gameboy: '/models/gameboy.glb',
   // rubiksCube: '/models/rubiks-cube.glb', // Commented out - file missing
   // hotWheels: '/models/hot-wheels.glb',   // Commented out - file missing  
-  // tamagotchi: '/models/tamagotchi.glb',  // Commented out - file missing
-  // lego: '/models/lego-brick.glb'         // Commented out - file missing
+  tamagotchi: '/models/tamagotchi.glb',
+  ipod: '/models/ipod.glb'
 }
 
 // Preload all models
@@ -37,8 +37,8 @@ export const MODEL_SCALES = {
   gameboy: [25.0, 25.0, 25.0],
   rubiksCube: [0.3, 0.3, 0.3],
   hotWheels: [0.4, 0.4, 0.4],
-  tamagotchi: [0.35, 0.35, 0.35],
-  lego: [0.25, 0.25, 0.25]
+  tamagotchi: [0.15, 0.15, 0.15],
+  ipod: [12.5, 12.5, 12.5]
 }
 
 // Model rotation configurations for proper orientation
@@ -47,7 +47,7 @@ export const MODEL_ROTATIONS = {
   rubiksCube: [0.2, 0.3, 0],
   hotWheels: [0, Math.PI / 2, 0],
   tamagotchi: [0, 0, 0],
-  lego: [0, 0.4, 0]
+  ipod: [0, Math.PI * 1.5, 0]
 }
 
 // Optimize model on load

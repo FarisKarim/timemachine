@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { gameboyData, getRandomFunFact } from '../../data/gameboyData';
+import { gameboyData, getRandomFunFact, gameThemes } from '../../data/gameboyData';
 import ROM3DModel from '../3d/ROM3DModel';
 
 const PopularGamesGrid = ({ games, onGameSelect, selectedGame }) => {
@@ -8,7 +8,7 @@ const PopularGamesGrid = ({ games, onGameSelect, selectedGame }) => {
   
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-green-400 font-mono">
+      <h4 className="text-lg gameboy-header">
         {'>'} POPULAR_GAMES.EXE
       </h4>
       <div className="grid grid-cols-2 gap-4 h-80">
@@ -20,28 +20,30 @@ const PopularGamesGrid = ({ games, onGameSelect, selectedGame }) => {
             [1.5, -0.5, 0]   // Bottom right
           ];
           
+          const gameTheme = gameThemes[game.id];
+          
           return (
             <div
               key={game.id}
-              className={`
-                relative rounded-lg border transition-all duration-300 overflow-hidden cursor-pointer
-                ${selectedGame?.id === game.id 
-                  ? `border-green-400 shadow-lg shadow-green-400/20 ${
-                      game.id === 'pokemon-fire-red' ? 'bg-red-100' :
-                      game.id === 'pokemon-emerald' ? 'bg-emerald-100' :
-                      game.id === 'mario-kart' ? 'bg-blue-100' :
-                      game.id === 'zelda-links-awakening' ? 'bg-orange-100' :
-                      'bg-gray-200'
-                    }` 
-                  : `border-white/20 bg-white hover:border-green-400/50 ${
-                      game.id === 'pokemon-fire-red' ? 'hover:bg-red-200' :
-                      game.id === 'pokemon-emerald' ? 'hover:bg-emerald-50' :
-                      game.id === 'mario-kart' ? 'hover:bg-blue-100' :
-                      game.id === 'zelda-links-awakening' ? 'hover:bg-orange-100' :
-                      'hover:bg-green-100'
-                    }`
-                }
-              `}
+              className="relative rounded-lg border transition-all duration-300 overflow-hidden cursor-pointer transform"
+              style={{
+                background: selectedGame?.id === game.id 
+                  ? gameTheme?.bgGradient || 'linear-gradient(135deg, #f3f4f6, #e5e7eb)'
+                  : hoveredGame === game.id 
+                  ? gameTheme?.bgGradient || 'linear-gradient(135deg, #f9fafb, #f3f4f6)'
+                  : 'rgba(255, 255, 255, 0.1)',
+                borderColor: selectedGame?.id === game.id 
+                  ? gameTheme ? '#3b82f6' : '#10b981'
+                  : hoveredGame === game.id 
+                  ? gameTheme ? '#60a5fa' : '#34d399'
+                  : 'rgba(255, 255, 255, 0.2)',
+                transform: hoveredGame === game.id ? 'translateY(-2px)' : 'translateY(0)',
+                boxShadow: hoveredGame === game.id 
+                  ? '0 8px 25px rgba(0, 0, 0, 0.15)' 
+                  : selectedGame?.id === game.id 
+                  ? '0 4px 15px rgba(0, 0, 0, 0.1)'
+                  : 'none'
+              }}
               onMouseEnter={() => setHoveredGame(game.id)}
               onMouseLeave={() => setHoveredGame(null)}
               onClick={() => onGameSelect(game)}
@@ -78,33 +80,33 @@ const PopularGamesGrid = ({ games, onGameSelect, selectedGame }) => {
 const TechSpecs = ({ specs }) => {
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-green-400 font-mono">
+      <h4 className="text-lg gameboy-header">
         {'>'} SYSTEM_INFO.DAT
       </h4>
       <div className="bg-black/40 p-4 rounded-lg border border-green-400/30 font-mono text-sm">
         <div className="space-y-2">
           <div className="flex justify-between">
-            <span className="text-green-300">RELEASE:</span>
+            <span className="text-blue-500">RELEASE:</span>
             <span className="text-white">{specs.releaseDate}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-green-300">CPU:</span>
+            <span className="text-blue-500">CPU:</span>
             <span className="text-white text-xs">{specs.cpu}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-green-300">DISPLAY:</span>
+            <span className="text-blue-500">DISPLAY:</span>
             <span className="text-white text-xs">{specs.display}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-green-300">BATTERY:</span>
+            <span className="text-blue-500">BATTERY:</span>
             <span className="text-white">{specs.battery}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-green-300">SOLD:</span>
+            <span className="text-blue-500">SOLD:</span>
             <span className="text-white">{specs.unitsSold}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-green-300">PRICE:</span>
+            <span className="text-blue-500">PRICE:</span>
             <span className="text-white">{specs.price}</span>
           </div>
         </div>
@@ -116,14 +118,14 @@ const TechSpecs = ({ specs }) => {
 const FunFactPanel = ({ fact }) => {
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-green-400 font-mono">
+      <h4 className="text-lg gameboy-header">
         {'>'} TRIVIA.TXT
       </h4>
       <div className="bg-gradient-to-r from-green-900/20 to-blue-900/20 p-4 rounded-lg border border-green-400/20">
-        <h5 className="font-semibold text-green-300 mb-2">{fact.title}</h5>
+        <h5 className="font-semibold text-blue-500 mb-2">{fact.title}</h5>
         <p className="text-sm text-white/80 leading-relaxed">{fact.fact}</p>
         <div className="mt-2">
-          <span className="inline-block px-2 py-1 bg-green-400/10 text-green-400 text-xs rounded font-mono uppercase">
+          <span className="inline-block px-2 py-1 bg-green-400/10 text-blue-600 text-xs rounded font-mono uppercase">
             {fact.category}
           </span>
         </div>
@@ -136,7 +138,7 @@ const MemoryCarousel = ({ memories, currentMemory, onMemoryChange }) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h4 className="text-lg font-semibold text-green-400 font-mono">
+        <h4 className="text-lg gameboy-header">
           {'>'} MEMORIES.LOG
         </h4>
         <div className="flex gap-1">
@@ -162,13 +164,13 @@ const MemoryCarousel = ({ memories, currentMemory, onMemoryChange }) => {
       <div className="flex justify-between">
         <button
           onClick={() => onMemoryChange((currentMemory - 1 + memories.length) % memories.length)}
-          className="text-green-400 hover:text-green-300 font-mono text-sm"
+          className="text-blue-600 hover:text-blue-500 font-mono text-sm"
         >
           ← PREV
         </button>
         <button
           onClick={() => onMemoryChange((currentMemory + 1) % memories.length)}
-          className="text-green-400 hover:text-green-300 font-mono text-sm"
+          className="text-blue-600 hover:text-blue-500 font-mono text-sm"
         >
           NEXT →
         </button>
@@ -183,7 +185,7 @@ const SelectedGameDetail = ({ game, onClose }) => {
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="flex items-center justify-between">
-        <h4 className="text-lg font-semibold text-green-400 font-mono">
+        <h4 className="text-lg gameboy-header">
           {'>'} {game.title.toUpperCase()}.ROM
         </h4>
         <button
@@ -209,7 +211,7 @@ const SelectedGameDetail = ({ game, onClose }) => {
         </div>
         <p className="text-white/80 mb-3">{game.description}</p>
         <div className="bg-black/40 p-3 rounded border border-white/20">
-          <p className="text-xs text-green-300 mb-1 font-mono">FUN_FACT:</p>
+          <p className="text-xs text-blue-500 mb-1 font-mono">FUN_FACT:</p>
           <p className="text-sm text-white/90">{game.funFact}</p>
         </div>
       </div>
@@ -252,11 +254,11 @@ export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay }) => {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold mb-2">Game Boy Advance SP Memory Capsule</h3>
-        <div className="flex items-center justify-center gap-2 text-green-400 font-mono text-sm">
-          <span className="animate-pulse">●</span>
+        <h3 className="text-2xl gameboy-header mb-2">Game Boy Advance SP Memory Capsule</h3>
+        <div className="flex items-center justify-center gap-2 gameboy-body text-sm">
+          <span className="gameboy-power-led"></span>
           <span>BOOTING NOSTALGIA_OS v2.003</span>
-          <span className="animate-pulse">●</span>
+          <span className="gameboy-power-led"></span>
         </div>
       </div>
 

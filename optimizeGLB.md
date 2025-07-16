@@ -2,9 +2,10 @@
 
 This document outlines the process for optimizing GLB files for NostalgiaX to achieve maximum performance and minimal file sizes.
 
-## Optimization Pipeline
+EXAMPLE: gltf-transform optimize ipod.glb ipod-optimized.glb --texture-compress webp
 
-We used a combination of geometry simplification and texture compression to shrink the model:
+
+
 
 ### 1. Simplify the mesh
 ```bash

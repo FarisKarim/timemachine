@@ -27,6 +27,17 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
         }}
         dpr={isMobile ? [1, 1.5] : [1, 2]} // Lower DPR on mobile
       >
+        {/* Dynamic scene background based on selected object */}
+        <color 
+          attach="background" 
+          args={[
+            selectedObject?.type === 'gameboy' && isZoomedIn 
+              ? '#4c1d95'  // Deep royal purple (Pokémon intro vibes)
+              : selectedObject?.type === 'ipod' && isZoomedIn 
+              ? '#1e3a8a'  // iPod blue
+              : '#000000'  // Default black
+          ]} 
+        />
         <Suspense fallback={null}>
           <Camera 
             scrollProgress={scrollProgress}
@@ -41,8 +52,8 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
               enablePan={false}
               enableZoom={true}
               enableRotate={true}
-              target={selectedObject.position}
-              minDistance={isMobile ? 1.5 : 2}
+              target={[2, 0, 0]}
+              minDistance={isMobile ? 3 : 4}
               maxDistance={isMobile ? 6 : 8}
               maxPolarAngle={Math.PI * 0.85}
               minPolarAngle={Math.PI * 0.15}

@@ -3,7 +3,7 @@ export const nostalgicObjects = [
     id: 'gameboy',
     type: 'gameboy',
     name: 'Game Boy',
-    position: [-8, 0, 0],
+    position: [-8, -1, 0],
     color: '#9CA3AF',
     scale: 0.8,
     memory: {
@@ -48,15 +48,15 @@ export const nostalgicObjects = [
     }
   },
   {
-    id: 'lego-brick',
-    type: 'lego',
-    name: 'LEGO Brick',
-    position: [8, -1, 2],
-    color: '#10B981',
+    id: 'ipod',
+    type: 'ipod',
+    name: 'iPod',
+    position: [10, -1, -2],
+    color: '#FFFFFF',
     scale: 0.7,
     memory: {
-      title: 'Building Worlds',
-      description: 'Stepping on these in bare feet was a rite of passage.'
+      title: 'Musical Revolution',
+      description: '1,000 songs in your pocket changed everything about how we experienced music.'
     }
   }
 ];

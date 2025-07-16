@@ -9,14 +9,17 @@ export const Camera = ({ scrollProgress, scrollProgressRef, selectedObject, isZo
   
   // Instant zoom when object is selected
   if (isZoomedIn && selectedObject && cameraRef.current && !hasZoomedRef.current) {
-    const objectPos = selectedObject.position;
-    const targetX = objectPos[0];
-    const targetY = objectPos[1] + 2;
-    const targetZ = objectPos[2] + (selectedObject.type === 'gameboy' ? 8 : 4);
+    // Fixed positioning for all objects - same position regardless of timeline location
+    const targetX = 5.5;  // Move camera further right to offset the view
+    const targetY = 0.5;  // Adjust height for better angle
+    const targetZ = 8;    // Fixed distance (zoomed out)
+    
+    // Fixed display position when zoomed in
+    const displayPosition = [2, 0, 0];
     
     // Set camera position instantly
     cameraRef.current.position.set(targetX, targetY, targetZ);
-    cameraRef.current.lookAt(objectPos[0], objectPos[1], objectPos[2]);
+    cameraRef.current.lookAt(displayPosition[0], displayPosition[1], displayPosition[2]);
     cameraRef.current.fov = 60;
     cameraRef.current.updateProjectionMatrix();
     hasZoomedRef.current = true;

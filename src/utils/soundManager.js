@@ -220,6 +220,12 @@ class SoundManager {
         setTimeout(() => this.generateTone(1319, 0.06, 'square', 0.3), 100); // E6
         setTimeout(() => this.generateTone(1047, 0.04, 'square', 0.2), 180); // C6
         break;
+      case 'gameboy':
+        // Classic GameBoy power-on chime (iconic startup sound)
+        this.generateTone(659, 0.2, 'square', 0.4); // E5
+        setTimeout(() => this.generateTone(523, 0.2, 'square', 0.4), 200); // C5
+        setTimeout(() => this.generateTone(587, 0.4, 'square', 0.4), 400); // D5
+        break;
       default:
         this.playClick();
     }

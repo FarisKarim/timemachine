@@ -21,8 +21,9 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
         const baseY = object.position[1];
         meshRef.current.position.y = baseY + Math.sin(time * 0.8) * 0.2;
         
-        // Slow auto rotation when focused
-        meshRef.current.rotation.y += 0.003;
+        // Auto rotation when focused - faster for iPod
+        const rotationSpeed = object.type === 'ipod' ? 0.01 : 0.003;
+        meshRef.current.rotation.y += rotationSpeed;
         
         // Larger scale when selected
         const targetScale = object.scale * 1.8;
@@ -62,8 +63,16 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
   // Calculate glow size - keep it reasonable regardless of model scale
   const glowSize = modelPath ? 2.0 : 1.4; // Fixed size for glow effect
 
+  // Position object at better location when zoomed in
+  const displayPosition = (isSelected && isZoomedIn) 
+    ? [2, 0, 0] // Good central position for rotation
+    : object.position;
+
+  // Hide non-selected objects when zoomed in
+  const isVisible = !isZoomedIn || isSelected;
+
   return (
-    <group ref={meshRef} position={object.position}>
+    <group ref={meshRef} position={displayPosition} visible={isVisible}>
       {/* Invisible hitbox for interaction */}
       <mesh
         visible={false}
@@ -87,7 +96,7 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
       {/* Model or fallback geometry - NO interaction events */}
       <group scale={modelScale} rotation={modelRotation}>
         {modelPath ? (
-          <group>
+          <group rotation={object.type === 'gameboy' && hovered ? [-0.1, 0, 0] : [0, 0, 0]}>
             <SuspendedModel
               modelPath={modelPath}
               objectType={object.type}
@@ -136,7 +145,6 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
         </mesh>
       )}
       
-      
       {/* Object label - hide when zoomed for cleaner view */}
       {!isZoomedIn && (
         <Text
@@ -148,6 +156,17 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
         >
           {object.name}
         </Text>
+      )}
+      
+      {/* GameBoy SP screen glow effect */}
+      {object.type === 'gameboy' && isSelected && isZoomedIn && (
+        <pointLight
+          position={[0.2, 0.1, 0.5]}
+          color="#7dd3fc"
+          intensity={0.8}
+          distance={3}
+          decay={2}
+        />
       )}
     </group>
   );

@@ -176,6 +176,38 @@ export const gameboyData = {
   }
 };
 
+// Game-specific theming for enhanced interactions
+export const gameThemes = {
+  'pokemon-fire-red': {
+    bgGradient: 'linear-gradient(135deg, #dc2626, #f97316)',
+    icon: '🔥',
+    pokemonSilhouette: 'charizard',
+    soundEffect: 'pokemon_cry',
+    model: '/models/fire_red.glb'
+  },
+  'pokemon-emerald': {
+    bgGradient: 'linear-gradient(135deg, #059669, #10b981)',
+    icon: '💎',
+    pokemonSilhouette: 'rayquaza',
+    soundEffect: 'pokemon_cry',
+    model: '/models/emerald.glb'
+  },
+  'zelda-links-awakening': {
+    bgGradient: 'linear-gradient(135deg, #d97706, #f59e0b)',
+    icon: '🗡️',
+    characterSilhouette: 'link',
+    soundEffect: 'zelda_chime',
+    model: '/models/zelda.glb'
+  },
+  'mario-kart': {
+    bgGradient: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+    icon: '🏎️',
+    characterSilhouette: 'mario',
+    soundEffect: 'mario_kart_engine',
+    model: '/models/mario.glb'
+  }
+};
+
 // Helper function to get random fun fact
 export const getRandomFunFact = () => {
   const facts = gameboyData.funFacts;
