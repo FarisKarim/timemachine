@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import { Lighting } from './Lighting';
 import { Timeline } from './Timeline';
 import { Camera } from './Camera';
+import { PS2FloatingTowers } from './PS2FloatingTowers';
 import { preloadModels } from '../../utils/modelLoader';
 
 export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, selectedObject, isZoomedIn, isMobile }) => {
@@ -33,6 +34,10 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
           args={[
             selectedObject?.type === 'gameboy' && isZoomedIn 
               ? '#4c1d95'  // Deep royal purple (Pokémon intro vibes)
+              : selectedObject?.type === 'tamagotchi' && isZoomedIn 
+              ? '#FFB6C1'  // Soft pastel pink (kawaii aesthetic)
+              : selectedObject?.type === 'ps2' && isZoomedIn 
+              ? '#000011'  // PS2 deep space void
               : selectedObject?.type === 'ipod' && isZoomedIn 
               ? '#1e3a8a'  // iPod blue
               : '#000000'  // Default black
@@ -77,6 +82,14 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
             selectedObject={selectedObject}
             isZoomedIn={isZoomedIn}
           />
+          
+          {/* PS2 Floating Towers - only visible when PS2 is selected */}
+          {selectedObject?.type === 'ps2' && isZoomedIn && (
+            <PS2FloatingTowers 
+              isVisible={true}
+              onTowerClick={(tower) => console.log('Tower clicked:', tower)}
+            />
+          )}
           
         </Suspense>
       </Canvas>

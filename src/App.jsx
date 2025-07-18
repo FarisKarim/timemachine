@@ -3,6 +3,7 @@ import { Scene } from './components/3d/Scene';
 import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
 import { TamagotchiMemoryCapsule } from './components/ui/TamagotchiMemoryCapsule';
 import { IPodMemoryCapsule } from './components/ui/iPodMemoryCapsule';
+import { PS2MemoryCapsule } from './components/ui/PS2MemoryCapsule';
 import { useAudioManager } from './hooks/useAudioManager';
 import { useMobileDetection } from './hooks/useMobileDetection';
 import { useTouchControls } from './hooks/useTouchControls';
@@ -315,7 +316,7 @@ function App() {
               </div>
             </div>
             
-            {/* Memory Content - Enhanced for Game Boy and Tamagotchi */}
+            {/* Memory Content - Enhanced for all nostalgic objects */}
             <div className="flex-1 overflow-y-auto pr-4">
               {selectedObject.type === 'gameboy' ? (
                 <GameBoyMemoryCapsule 
@@ -325,6 +326,10 @@ function App() {
               ) : selectedObject.type === 'tamagotchi' ? (
                 <TamagotchiMemoryCapsule 
                   onCharacterSelect={handleCharacterSelect}
+                />
+              ) : selectedObject.type === 'ps2' ? (
+                <PS2MemoryCapsule 
+                  onCardSelect={(card) => console.log('Selected memory card:', card)}
                 />
               ) : selectedObject.type === 'ipod' ? (
                 <div className="iPod-sidebar-content">

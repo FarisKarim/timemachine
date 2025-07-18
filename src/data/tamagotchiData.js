@@ -82,23 +82,63 @@ export const tamagotchiData = {
   memories: [
     {
       title: "The Beeping Terror",
-      content: "That moment of panic when your Tamagotchi started beeping in the middle of class, and you had to secretly feed it under your desk."
+      content: "That moment of panic when your Tamagotchi started beeping in the middle of class, and you had to secretly feed it under your desk.",
+      timestamp: "September 1997"
     },
     {
       title: "Keychain Companion",
-      content: "Clipped to every backpack, jingling with every step. Some kids had five or six dangling like trophies of virtual parenthood."
+      content: "Clipped to every backpack, jingling with every step. Some kids had five or six dangling like trophies of virtual parenthood.",
+      timestamp: "Holiday Season 1997"
     },
     {
       title: "The Great Reset",
-      content: "The heartbreak of coming home to find your beloved digital pet had 'passed away' because you forgot to pause it during school."
+      content: "The heartbreak of coming home to find your beloved digital pet had 'passed away' because you forgot to pause it during school.",
+      timestamp: "October 1997"
     },
     {
       title: "Trading Secrets",
-      content: "Playground intel on how to get the secret characters. 'You have to win 10 games in a row!' (Nobody knew if it was true.)"
+      content: "Playground intel on how to get the secret characters. 'You have to win 10 games in a row!' (Nobody knew if it was true.)",
+      timestamp: "Spring 1998"
     },
     {
       title: "Battery Life Anxiety",
-      content: "Watching that battery icon like a hawk, begging mom for new batteries because your Tamagotchi's life depended on it."
+      content: "Watching that battery icon like a hawk, begging mom for new batteries because your Tamagotchi's life depended on it.",
+      timestamp: "Winter 1997"
+    },
+    {
+      title: "The Dinner Table Ban",
+      content: "Got grounded for a week after bringing it to grandma's birthday dinner. 'But it'll DIE!' wasn't a valid excuse.",
+      timestamp: "November 1997"
+    },
+    {
+      title: "Digital Pet Cemetery",
+      content: "Drew little tombstones in my diary for every Tamagotchi that passed. RIP Blob, age 14 days. You were loved.",
+      timestamp: "December 1997"
+    },
+    {
+      title: "Secret Sound Settings",
+      content: "Became a master at feeding with the sound off, fingers memorizing every button combo. Silent caretaking level: Expert.",
+      timestamp: "January 1998"
+    },
+    {
+      title: "The Connection Era",
+      content: "When V3 came out with infrared connection, spent hours trying to mate Tamagotchis with friends. Digital matchmaking!",
+      timestamp: "2004"
+    },
+    {
+      title: "Pause Button Discovery",
+      content: "Life changed forever when someone discovered you could pause by going to the clock screen. School days were saved!",
+      timestamp: "October 1997"
+    },
+    {
+      title: "Bedtime Negotiations",
+      content: "'Just five more minutes, I need to put it to sleep!' Convinced parents that digital pets had bedtimes too.",
+      timestamp: "Summer 1997"
+    },
+    {
+      title: "The Poop Incident",
+      content: "Teacher confiscated it during math test. Returned it after class surrounded by digital poop. Poor Mametchi!",
+      timestamp: "February 1998"
     }
   ],
   

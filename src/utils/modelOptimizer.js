@@ -12,10 +12,10 @@ const MATERIAL_SETTINGS = {
     roughness: 0.6,
     envMapIntensity: 0.3
   },
-  hotWheels: {
-    metalness: 0.7,
-    roughness: 0.3,
-    envMapIntensity: 0.8
+  ps2: {
+    metalness: 0.2,
+    roughness: 0.8,
+    envMapIntensity: 0.4
   },
   tamagotchi: {
     metalness: 0.3,

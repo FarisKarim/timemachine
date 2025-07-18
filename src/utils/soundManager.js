@@ -188,24 +188,31 @@ class SoundManager {
         this.generateTone(2000, 0.02, 'square', 0.5);
         setTimeout(() => this.generateTone(1500, 0.02, 'square', 0.3), 20);
         break;
-      case 'hot-wheels':
-        // Car engine rev
+      case 'ps2':
+        // PS2 startup sound (simplified version)
         if (this.audioContext) {
-          const oscillator = this.audioContext.createOscillator();
-          const gainNode = this.audioContext.createGain();
+          // Low hum
+          const oscillator1 = this.audioContext.createOscillator();
+          const gainNode1 = this.audioContext.createGain();
           
-          oscillator.connect(gainNode);
-          gainNode.connect(this.audioContext.destination);
+          oscillator1.connect(gainNode1);
+          gainNode1.connect(this.audioContext.destination);
           
-          oscillator.type = 'sawtooth';
-          oscillator.frequency.setValueAtTime(80, this.audioContext.currentTime);
-          oscillator.frequency.exponentialRampToValueAtTime(200, this.audioContext.currentTime + 0.3);
+          oscillator1.type = 'sine';
+          oscillator1.frequency.setValueAtTime(110, this.audioContext.currentTime);
           
-          gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.3);
+          gainNode1.gain.setValueAtTime(0, this.audioContext.currentTime);
+          gainNode1.gain.linearRampToValueAtTime(0.2, this.audioContext.currentTime + 0.1);
+          gainNode1.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + 0.4);
           
-          oscillator.start(this.audioContext.currentTime);
-          oscillator.stop(this.audioContext.currentTime + 0.3);
+          oscillator1.start(this.audioContext.currentTime);
+          oscillator1.stop(this.audioContext.currentTime + 0.4);
+          
+          // Higher harmonics
+          setTimeout(() => {
+            this.generateTone(220, 0.2, 'sine', 0.15);
+            setTimeout(() => this.generateTone(440, 0.15, 'sine', 0.1), 100);
+          }, 150);
         }
         break;
       case 'rubiks-cube':

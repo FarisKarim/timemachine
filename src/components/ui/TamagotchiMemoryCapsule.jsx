@@ -4,14 +4,14 @@ import { tamagotchiData, getRandomFunFact } from '../../data/tamagotchiData';
 const CharacterGuide = ({ characters, selectedCharacter, onCharacterSelect }) => {
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-bold text-pink-500 font-mono flex items-center gap-2 tamagotchi-font-tech">
-        CHARACTER_GUIDE.EXE
+      <h4 className="text-lg font-bold text-pink-400 flex items-center gap-2">
+        <span className="text-xl">🌟</span> Pet Collection ♥
       </h4>
       
       {/* Evolution Path Layout */}
-      <div className="relative bg-black/20 p-4 rounded-xl border border-pink-400/30">
+      <div className="relative bg-gradient-to-br from-pink-50/10 to-purple-50/5 p-4 rounded-xl border border-pink-300/20 shadow-lg">
         <div className="text-center mb-4">
-          <span className="text-xs text-pink-300 font-mono tamagotchi-font-tech">EVOLUTION PATHS</span>
+          <span className="text-xs text-pink-300">Choose Your Pet ♥</span>
         </div>
         
         <div className="space-y-3">
@@ -27,8 +27,8 @@ const CharacterGuide = ({ characters, selectedCharacter, onCharacterSelect }) =>
                 className={`
                   w-full flex items-center gap-2 p-2.5 rounded-lg border transition-all duration-300 overflow-hidden
                   ${selectedCharacter?.id === character.id 
-                    ? 'border-pink-500 shadow-lg shadow-pink-500/20 transform scale-105' 
-                    : 'border-white/20 hover:border-pink-400/50 hover:scale-102'
+                    ? 'border-pink-400 shadow-lg shadow-pink-400/20 transform scale-105' 
+                    : 'border-white/20 hover:border-pink-300/50 hover:scale-102'
                   }
                 `}
                 style={{
@@ -57,9 +57,9 @@ const CharacterGuide = ({ characters, selectedCharacter, onCharacterSelect }) =>
                     {[1, 2, 3, 4].map((level) => (
                       <div
                         key={level}
-                        className={`w-2 h-2 rounded-full ${
+                        className={`w-1.5 h-1.5 rounded-full transition-all ${
                           level <= (4 - index) 
-                            ? 'bg-pink-400' 
+                            ? 'bg-pink-300' 
                             : 'bg-white/20'
                         }`}
                       />
@@ -91,10 +91,10 @@ const CareStats = ({ stats }) => {
 
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-bold text-cyan-400 font-mono flex items-center gap-2 tamagotchi-font-tech">
-        <span className="text-2xl">📊</span> CARE_STATS.DAT
+      <h4 className="text-lg font-bold text-cyan-300 flex items-center gap-2">
+        <span className="text-2xl">📔</span> Care Diary
       </h4>
-      <div className="space-y-3 bg-black/20 p-4 rounded-xl border border-cyan-400/30">
+      <div className="space-y-3 bg-gradient-to-br from-cyan-50/10 to-pink-50/5 p-4 rounded-xl border border-cyan-300/20 shadow-md">
         {stats.map((stat) => (
           <div key={stat.name} className="space-y-1">
             <div className="flex justify-between items-center">
@@ -124,8 +124,8 @@ const MiniGames = ({ games }) => {
 
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-bold text-green-400 font-mono flex items-center gap-2 tamagotchi-font-tech">
-        <span className="text-2xl">🎮</span> MINI_GAMES.ROM
+      <h4 className="text-lg font-bold text-green-300 flex items-center gap-2">
+        <span className="text-2xl">🎮</span> Play Time!
       </h4>
       <div className="space-y-2">
         {games.map((game) => (
@@ -136,7 +136,7 @@ const MiniGames = ({ games }) => {
             className={`
               p-3 rounded-lg border transition-all duration-300 cursor-pointer
               ${hoveredGame === game.name 
-                ? 'border-green-400 bg-green-400/20 transform scale-105' 
+                ? 'border-green-300 bg-green-300/15 transform scale-105' 
                 : 'border-white/20 bg-white/5'
               }
             `}
@@ -151,9 +151,9 @@ const MiniGames = ({ games }) => {
               </div>
               <span className={`
                 text-xs px-2 py-1 rounded-full
-                ${game.difficulty === 'Easy' ? 'bg-green-500/20 text-green-400' :
-                  game.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                  'bg-red-500/20 text-red-400'}
+                ${game.difficulty === 'Easy' ? 'bg-green-400/20 text-green-300' :
+                  game.difficulty === 'Medium' ? 'bg-yellow-400/20 text-yellow-300' :
+                  'bg-red-400/20 text-red-300'}
               `}>
                 {game.difficulty}
               </span>
@@ -168,11 +168,11 @@ const MiniGames = ({ games }) => {
 const EvolutionTimeline = ({ stages }) => {
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-bold text-yellow-400 font-mono flex items-center gap-2 tamagotchi-font-tech">
-        <span className="text-2xl">📈</span> EVOLUTION.LOG
+      <h4 className="text-lg font-bold text-yellow-300 flex items-center gap-2">
+        <span className="text-2xl">⭐</span> Growth Journey
       </h4>
       <div className="relative">
-        <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-yellow-400 to-pink-400" />
+        <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-yellow-300 via-pink-300 to-purple-300" />
         <div className="space-y-4">
           {stages.map((stage, index) => (
             <div key={stage.stage} className="flex items-center gap-4 relative">
@@ -198,35 +198,77 @@ const EvolutionTimeline = ({ stages }) => {
   );
 };
 
-const MemoryCarousel = ({ memories, currentMemory, onMemoryChange }) => {
+const MemoryLog = ({ memories, currentMemory, onMemoryChange }) => {
+  const [expandedMemory, setExpandedMemory] = useState(null);
+  
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h4 className="text-lg font-bold text-pink-400 font-mono flex items-center gap-2 tamagotchi-font-tech">
-          <span className="text-2xl">💭</span> MEMORIES.TXT
+        <h4 className="text-xl font-bold text-pink-400 flex items-center gap-2">
+          <span className="text-2xl">💝</span> Memory Diary
         </h4>
-        <div className="flex gap-1">
-          {memories.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => onMemoryChange(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentMemory 
-                  ? 'bg-pink-400 w-4' 
-                  : 'bg-white/30 hover:bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
+        <span className="text-xs text-pink-300 px-3 py-1 bg-pink-400/10 rounded-full">
+          {memories.length} memories
+        </span>
       </div>
-      <div className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 p-4 rounded-xl border border-pink-400/30">
-        <h5 className="font-bold text-white mb-2 tamagotchi-font-header">
-          {memories[currentMemory].title}
-        </h5>
-        <p className="text-white/80 text-sm leading-relaxed tamagotchi-font-body">
+      
+      {/* Featured Memory */}
+      <div className="bg-gradient-to-br from-pink-100/20 via-purple-100/10 to-cyan-100/10 p-5 rounded-2xl border border-pink-300/30 shadow-lg">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex-1">
+            <h5 className="font-bold text-lg text-white mb-1">
+              {memories[currentMemory].title}
+            </h5>
+            <span className="text-xs text-pink-300/80">
+              {memories[currentMemory].timestamp}
+            </span>
+          </div>
+          <div className="flex gap-1">
+            {memories.slice(0, 5).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => onMemoryChange(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentMemory 
+                    ? 'bg-pink-400 w-4' 
+                    : 'bg-white/30 hover:bg-pink-300/50'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+        <p className="text-white/90 text-sm leading-relaxed mb-3">
           {memories[currentMemory].content}
         </p>
+        <button 
+          onClick={() => setExpandedMemory(expandedMemory ? null : 'all')}
+          className="text-xs text-pink-300 hover:text-pink-400 transition-colors"
+        >
+          {expandedMemory ? '← Back to featured' : 'View all memories →'}
+        </button>
       </div>
+      
+      {/* All Memories List */}
+      {expandedMemory && (
+        <div className="space-y-3 animate-fade-in max-h-96 overflow-y-auto pr-2">
+          {memories.map((memory, index) => (
+            <div 
+              key={index}
+              onClick={() => {
+                onMemoryChange(index);
+                setExpandedMemory(null);
+              }}
+              className="p-3 bg-white/5 hover:bg-pink-500/10 rounded-lg border border-white/10 hover:border-pink-400/30 transition-all cursor-pointer"
+            >
+              <div className="flex items-start justify-between mb-1">
+                <h6 className="font-semibold text-sm text-white">{memory.title}</h6>
+                <span className="text-xs text-pink-300/60">{memory.timestamp}</span>
+              </div>
+              <p className="text-xs text-white/70 line-clamp-2">{memory.content}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -234,14 +276,14 @@ const MemoryCarousel = ({ memories, currentMemory, onMemoryChange }) => {
 const FunFactDisplay = ({ fact }) => {
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-bold text-purple-400 font-mono flex items-center gap-2 tamagotchi-font-tech">
-        <span className="text-2xl">💡</span> DID_YOU_KNOW.NFO
+      <h4 className="text-lg font-bold text-purple-300 flex items-center gap-2">
+        <span className="text-2xl">💡</span> Fun Facts!
       </h4>
-      <div className="bg-gradient-to-r from-purple-500/20 to-cyan-500/20 p-4 rounded-xl border border-purple-400/30">
+      <div className="bg-gradient-to-r from-purple-100/20 to-cyan-100/15 p-4 rounded-xl border border-purple-300/20 shadow-md">
         <h5 className="font-bold text-purple-300 mb-2 tamagotchi-font-header">{fact.title}</h5>
         <p className="text-sm text-white/80 leading-relaxed tamagotchi-font-body">{fact.fact}</p>
         <div className="mt-3 flex items-center gap-2">
-          <span className="px-3 py-1 bg-purple-500/20 text-purple-300 text-xs rounded-full font-mono uppercase tamagotchi-font-tech">
+          <span className="px-3 py-1 bg-purple-400/20 text-purple-300 text-xs rounded-full uppercase">
             #{fact.category}
           </span>
           <span className="text-xs text-white/50 tamagotchi-font-body">Press SPACE for more facts!</span>
@@ -291,74 +333,91 @@ export const TamagotchiMemoryCapsule = ({ onCharacterSelect }) => {
 
   return (
     <div className="space-y-6">
-      {/* Header with animated gradient */}
+      {/* Header with softer gradient */}
       <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient tamagotchi-font-header">
-          Tamagotchi Memory Capsule
+        <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-gradient">
+          ✨ Tamagotchi Memory Capsule ✨
         </h3>
       </div>
 
-      {/* Character Guide */}
-      <CharacterGuide 
-        characters={tamagotchiData.characters}
-        selectedCharacter={selectedCharacter}
-        onCharacterSelect={handleCharacterSelect}
-      />
-
-      {/* Selected Character Detail */}
-      {selectedCharacter && (
-        <div className="animate-fade-in space-y-4">
-          <div 
-            className="p-4 rounded-xl border-2 transition-all"
-            style={{
-              borderColor: selectedCharacter.color,
-              background: `linear-gradient(135deg, ${selectedCharacter.color}20, ${selectedCharacter.color}10)`
-            }}
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-4xl animate-bounce">{selectedCharacter.icon}</span>
-              <div>
-                <h5 className="font-bold text-lg text-white tamagotchi-font-header">{selectedCharacter.name}</h5>
-                <p className="text-sm text-white/70 tamagotchi-font-body">{selectedCharacter.type}</p>
-              </div>
-            </div>
-            <p className="text-white/80 mb-2 tamagotchi-font-body">{selectedCharacter.description}</p>
-            <div className="text-xs text-white/60 space-y-1 tamagotchi-font-body">
-              <p><span className="text-pink-400">Requirements:</span> {selectedCharacter.requirements}</p>
-              <p><span className="text-cyan-400">Personality:</span> {selectedCharacter.personality}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Care Stats */}
-      <CareStats stats={tamagotchiData.careStats} />
-
-      {/* Mini Games */}
-      <MiniGames games={tamagotchiData.miniGames} />
-
-      {/* Evolution Timeline */}
-      <EvolutionTimeline stages={tamagotchiData.evolutionStages} />
-
-      {/* Memory Carousel */}
-      <MemoryCarousel 
+      {/* Memory Log - Prominently placed at top */}
+      <MemoryLog 
         memories={tamagotchiData.memories}
         currentMemory={currentMemory}
         onMemoryChange={setCurrentMemory}
       />
+
+      {/* Character Guide */}
+      <div className="bg-white/5 p-5 rounded-2xl backdrop-blur-sm">
+        <CharacterGuide 
+          characters={tamagotchiData.characters}
+          selectedCharacter={selectedCharacter}
+          onCharacterSelect={handleCharacterSelect}
+        />
+
+        {/* Selected Character Detail */}
+        {selectedCharacter && (
+          <div className="animate-fade-in mt-4">
+            <div 
+              className="p-4 rounded-xl border-2 transition-all"
+              style={{
+                borderColor: selectedCharacter.color,
+                background: `linear-gradient(135deg, ${selectedCharacter.color}20, ${selectedCharacter.color}10)`
+              }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-4xl animate-bounce">{selectedCharacter.icon}</span>
+                <div>
+                  <h5 className="font-bold text-lg text-white">{selectedCharacter.name}</h5>
+                  <p className="text-sm text-white/70">{selectedCharacter.type}</p>
+                </div>
+              </div>
+              <p className="text-white/80 mb-2">{selectedCharacter.description}</p>
+              <div className="text-xs text-white/60 space-y-1">
+                <p><span className="text-pink-400">Requirements:</span> {selectedCharacter.requirements}</p>
+                <p><span className="text-cyan-400">Personality:</span> {selectedCharacter.personality}</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Secondary Information - Collapsible */}
+      <details className="bg-white/5 p-5 rounded-2xl backdrop-blur-sm cursor-pointer group">
+        <summary className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-white hover:text-pink-300 transition-colors">
+          <span className="text-lg font-semibold flex items-center gap-2">
+            <span>📊</span> Care & Activities
+          </span>
+          <span className="text-xs text-white/40 group-hover:text-pink-300/60 transition-colors">
+            ▼ Click to expand
+          </span>
+        </summary>
+        <div className="mt-4 space-y-6">
+          {/* Care Stats */}
+          <CareStats stats={tamagotchiData.careStats} />
+
+          {/* Mini Games */}
+          <MiniGames games={tamagotchiData.miniGames} />
+
+          {/* Evolution Timeline */}
+          <EvolutionTimeline stages={tamagotchiData.evolutionStages} />
+        </div>
+      </details>
 
       {/* Fun Fact */}
       <FunFactDisplay fact={currentFact} />
 
       {/* Death Reasons (Easter Egg) */}
       <details className="cursor-pointer">
-        <summary className="text-xs text-white/40 hover:text-white/60 transition-colors font-mono">
-          ⚠️ MORTALITY.LOG
+        <summary className="text-xs text-white/40 hover:text-white/60 transition-colors">
+          💔 Digital Pet Cemetery
         </summary>
-        <div className="mt-2 p-3 bg-red-900/20 rounded border border-red-500/30 text-xs text-red-300 space-y-1">
+        <div className="mt-2 p-3 bg-purple-900/20 rounded-xl border border-purple-500/30 text-xs text-purple-300 space-y-1">
+          <p className="text-center mb-2 text-white/60">~ In loving memory ~</p>
           {tamagotchiData.deathReasons.map((reason, index) => (
             <p key={index}>• {reason}</p>
           ))}
+          <p className="text-center mt-3 text-white/50 italic">They lived, they beeped, they were loved.</p>
         </div>
       </details>
     </div>

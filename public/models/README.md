@@ -8,9 +8,9 @@ Place the following models in this directory:
 
 1. **gameboy.glb** - Classic Game Boy model
 2. **rubiks-cube.glb** - Rubik's Cube with colored faces
-3. **hot-wheels.glb** - Classic Hot Wheels car
+3. **ps2.glb** - PlayStation 2 console
 4. **tamagotchi.glb** - Virtual pet device
-5. **lego-brick.glb** - Standard LEGO brick (2x4 studs)
+5. **ipod.glb** - iPod classic model
 
 ## Model Requirements
 
@@ -35,9 +35,9 @@ Place the following models in this directory:
 ## Example Search Terms:
 - "game boy low poly"
 - "rubiks cube 3d model"
-- "hot wheels toy car"
+- "playstation 2 console 3d model"
 - "tamagotchi 3d model"
-- "lego brick simple"
+- "ipod classic 3d model"
 
 ## Fallback Behavior
 
