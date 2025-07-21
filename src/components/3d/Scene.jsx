@@ -7,7 +7,7 @@ import { Camera } from './Camera';
 import { PS2FloatingTowers } from './PS2FloatingTowers';
 import { preloadModels } from '../../utils/modelLoader';
 
-export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, selectedObject, isZoomedIn, isMobile }) => {
+export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, selectedObject, isZoomedIn, isMobile, selectedIMacColor }) => {
   useEffect(() => {
     // Preload all models
     preloadModels();
@@ -34,6 +34,8 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
           args={[
             selectedObject?.type === 'gameboy' && isZoomedIn 
               ? '#4c1d95'  // Deep royal purple (Pokémon intro vibes)
+              : selectedObject?.type === 'imacG3' && isZoomedIn 
+              ? selectedIMacColor || '#0369a1'  // Dynamic iMac G3 color
               : selectedObject?.type === 'tamagotchi' && isZoomedIn 
               ? '#FFB6C1'  // Soft pastel pink (kawaii aesthetic)
               : selectedObject?.type === 'ps2' && isZoomedIn 

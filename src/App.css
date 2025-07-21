@@ -7,6 +7,13 @@
   --gameboy-accent: #3b82f6;      /* GBA blue */
   --gameboy-screen: #1e293b;      /* Dark screen */
   --gameboy-power: #10b981;       /* Power LED green */
+  
+  /* iMac G3 Color Palette */
+  --imac-bondi-blue: #0095B6;     /* Bondi Blue */
+  --imac-translucent: rgba(0, 149, 182, 0.3); /* Translucent effect */
+  --imac-accent: #00C9FF;         /* Bright accent */
+  --imac-screen: #f0f9ff;         /* Screen glow */
+  --imac-text: #ffffff;           /* White text */
 }
 
 html, body {
@@ -415,6 +422,167 @@ canvas:active {
   font-family: 'Inter', system-ui;
   font-weight: 500;
   color: #475569;
+}
+
+/* iMac G3 Typography */
+.imac-header {
+  font-family: 'Chicago', 'Monaco', 'Courier New', monospace;
+  font-weight: bold;
+  color: var(--imac-text);
+  text-shadow: 1px 1px 0px rgba(255,255,255,0.3), 0 2px 4px rgba(0, 149, 182, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.imac-window {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #888;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.imac-button {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 1px solid #0095B6;
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.imac-button:hover {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.crt-glow {
+  box-shadow: 
+    0 0 20px rgba(0, 149, 182, 0.3),
+    inset 0 0 20px rgba(0, 201, 255, 0.1);
+  border-radius: 8px;
+}
+
+.translucent-bg {
+  background: linear-gradient(135deg, 
+    rgba(0, 149, 182, 0.8) 0%, 
+    rgba(0, 201, 255, 0.6) 50%, 
+    rgba(0, 149, 182, 0.8) 100%);
+  backdrop-filter: blur(12px) saturate(150%);
+  border-radius: 12px;
+}
+
+/* iMac G3 Boot Sequence Styles */
+.imac-boot-bg {
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.1) 2px,
+      rgba(255,255,255,0.1) 4px
+    );
+}
+
+.chicago-font {
+  font-family: 'Chicago', 'Monaco', 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+.apple-logo-container {
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+}
+
+.apple-rainbow-logo {
+  background: linear-gradient(
+    45deg,
+    #ff0000 0%,
+    #ff8c00 16.666%,
+    #ffd700 33.333%,
+    #00ff00 50%,
+    #00bfff 66.666%,
+    #8a2be2 83.333%,
+    #ff1493 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: brightness(0.9) contrast(1.2);
+}
+
+.mac-progress-container {
+  height: 8px;
+  background: #d0d0d0;
+  border: 1px inset #c0c0c0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.mac-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #007AFF, #4DA6FF);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.barber-pole-animation {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.3) 0px,
+    rgba(255,255,255,0.3) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  animation: barber-pole 1s linear infinite;
+}
+
+@keyframes barber-pole {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(25%);
+  }
+}
+
+/* Mac OS 9 Window Styling */
+.mac-window {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.mac-titlebar {
+  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+  border-bottom: 1px solid #a0a0a0;
+  padding: 4px 8px;
+  font-family: 'Chicago', monospace;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.mac-window-title {
+  font-family: 'Chicago', 'Monaco', 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.mac-system-label {
+  font-family: 'Chicago', 'Monaco', 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.3px;
 }
 
 /* GameBoy Power LED Animation */

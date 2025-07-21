@@ -3,7 +3,7 @@ export const nostalgicObjects = [
     id: 'gameboy',
     type: 'gameboy',
     name: 'Game Boy',
-    position: [-8, -1, 0],
+    position: [-12, -1, 0],
     color: '#9CA3AF',
     scale: 0.8,
     memory: {
@@ -12,15 +12,15 @@ export const nostalgicObjects = [
     }
   },
   {
-    id: 'rubiks-cube',
-    type: 'rubiksCube',
-    name: "Rubik's Cube",
-    position: [-4, 1, -2],
-    color: '#EF4444',
-    scale: 0.6,
+    id: 'imac-g3',
+    type: 'imacG3',
+    name: 'iMac G3',
+    position: [-5, -1, -2],
+    color: '#3B82F6',
+    scale: 0.7,
     memory: {
-      title: 'The Puzzle Master',
-      description: 'Peeling off stickers was definitely not cheating... right?'
+      title: 'Candy-Colored Computing',
+      description: 'The translucent, colorful iMac that made computers fun and approachable.'
     }
   },
   {
@@ -39,7 +39,7 @@ export const nostalgicObjects = [
     id: 'tamagotchi',
     type: 'tamagotchi',
     name: 'Tamagotchi',
-    position: [4, 0.5, -1],
+    position: [6, 0.5, -1],
     color: '#F59E0B',
     scale: 0.5,
     memory: {
@@ -51,7 +51,7 @@ export const nostalgicObjects = [
     id: 'ipod',
     type: 'ipod',
     name: 'iPod',
-    position: [10, -1, -2],
+    position: [12, -1, -2],
     color: '#FFFFFF',
     scale: 0.7,
     memory: {

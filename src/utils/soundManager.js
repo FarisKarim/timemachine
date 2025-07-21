@@ -215,11 +215,26 @@ class SoundManager {
           }, 150);
         }
         break;
-      case 'rubiks-cube':
-        // Plastic twist sounds
-        this.generateTone(1000, 0.05, 'square', 0.3);
-        setTimeout(() => this.generateTone(1200, 0.03, 'square', 0.2), 30);
-        setTimeout(() => this.generateTone(800, 0.04, 'square', 0.2), 60);
+      case 'imacG3':
+        // Classic Mac startup chime (simplified version)
+        if (this.audioContext) {
+          // Mac startup chord progression
+          const chordTimes = [0, 0.3, 0.6, 0.9];
+          const chords = [
+            [523, 659, 784], // C major
+            [587, 740, 880], // D major  
+            [659, 831, 988], // E major
+            [698, 880, 1047] // F major
+          ];
+          
+          chords.forEach((chord, index) => {
+            setTimeout(() => {
+              chord.forEach(freq => {
+                this.generateTone(freq, 0.4, 'sine', 0.15);
+              });
+            }, chordTimes[index] * 1000);
+          });
+        }
         break;
       case 'tamagotchi':
         // Digital pet beep

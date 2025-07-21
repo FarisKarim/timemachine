@@ -1,0 +1,1 @@
+fix the rotation of the imacg3 when selected

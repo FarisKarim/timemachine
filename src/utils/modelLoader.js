@@ -13,7 +13,7 @@ gltfLoader.setDRACOLoader(dracoLoader)
 // Model paths configuration
 export const MODEL_PATHS = {
   gameboy: '/models/gameboy.glb',
-  // rubiksCube: '/models/rubiks-cube.glb', // Commented out - file missing
+  imacG3: '/models/imacg3.glb',
   ps2: '/models/ps2.glb',
   tamagotchi: '/models/tamagotchi.glb',
   ipod: '/models/ipod.glb'
@@ -35,7 +35,7 @@ export const useModel = (modelPath) => {
 // Model scale configurations
 export const MODEL_SCALES = {
   gameboy: [25.0, 25.0, 25.0],
-  rubiksCube: [0.3, 0.3, 0.3],
+  imacG3: [4.0, 4.0, 4.0],
   ps2: [0.6, 0.6, 0.6],
   tamagotchi: [0.15, 0.15, 0.15],
   ipod: [12.5, 12.5, 12.5]
@@ -44,7 +44,7 @@ export const MODEL_SCALES = {
 // Model rotation configurations for proper orientation
 export const MODEL_ROTATIONS = {
   gameboy: [0, 0, 0],
-  rubiksCube: [0.2, 0.3, 0],
+  imacG3: [0, Math.PI / 2, 0],
   ps2: [0, 0, 0],
   tamagotchi: [0, 0, 0],
   ipod: [0, Math.PI * 1.5, 0]

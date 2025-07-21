@@ -4,6 +4,7 @@ import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
 import { TamagotchiMemoryCapsule } from './components/ui/TamagotchiMemoryCapsule';
 import { IPodMemoryCapsule } from './components/ui/iPodMemoryCapsule';
 import { PS2MemoryCapsule } from './components/ui/PS2MemoryCapsule';
+import IMacG3MemoryCapsule from './components/ui/IMacG3MemoryCapsule';
 import { useAudioManager } from './hooks/useAudioManager';
 import { useMobileDetection } from './hooks/useMobileDetection';
 import { useTouchControls } from './hooks/useTouchControls';
@@ -13,6 +14,7 @@ function App() {
   const [selectedObject, setSelectedObject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+  const [selectedIMacColor, setSelectedIMacColor] = useState('#0369a1'); // Default Bondi Blue
   const scrollProgressRef = useRef(0);
   const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound } = useAudioManager();
   const { isMobile, isTablet, isDesktop, orientation } = useMobileDetection();
@@ -124,6 +126,7 @@ function App() {
           selectedObject={selectedObject}
           isZoomedIn={isZoomedIn}
           isMobile={isMobile}
+          selectedIMacColor={selectedIMacColor}
         />
       </div>
 
@@ -230,6 +233,8 @@ function App() {
             ? 'linear-gradient(45deg, #FF1493, #FF69B4, #00BFFF, #32CD32, #FFD700)'
             : selectedObject?.type === 'ipod'
             ? 'linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 50%, rgba(226, 232, 240, 0.95) 100%)'
+            : selectedObject?.type === 'imacG3'
+            ? 'linear-gradient(135deg, rgba(0, 149, 182, 0.95) 0%, rgba(0, 201, 255, 0.9) 50%, rgba(0, 149, 182, 0.95) 100%)'
             : 'rgba(0, 0, 0, 0.4)',
           backdropFilter: selectedObject?.type === 'gameboy'
             ? 'blur(12px)'
@@ -237,6 +242,8 @@ function App() {
             ? 'blur(8px)' 
             : selectedObject?.type === 'ipod'
             ? 'blur(24px) saturate(180%)'
+            : selectedObject?.type === 'imacG3'
+            ? 'blur(16px) saturate(150%)'
             : 'blur(12px)',
           borderColor: selectedObject?.type === 'gameboy'
             ? 'rgba(59, 130, 246, 0.3)'
@@ -244,12 +251,16 @@ function App() {
             ? '#FF1493' 
             : selectedObject?.type === 'ipod'
             ? 'rgba(255, 255, 255, 0.4)'
+            : selectedObject?.type === 'imacG3'
+            ? 'rgba(0, 149, 182, 0.6)'
             : 'rgba(255, 255, 255, 0.1)',
           borderWidth: selectedObject?.type === 'gameboy'
             ? '2px'
             : selectedObject?.type === 'tamagotchi' 
             ? '3px' 
             : selectedObject?.type === 'ipod'
+            ? '2px'
+            : selectedObject?.type === 'imacG3'
             ? '2px'
             : '1px',
           borderStyle: selectedObject?.type === 'tamagotchi' ? 'dashed' : 'solid',
@@ -259,6 +270,8 @@ function App() {
             ? 'white' 
             : selectedObject?.type === 'ipod'
             ? '#1e293b'
+            : selectedObject?.type === 'imacG3'
+            ? 'white'
             : 'white',
           animation: selectedObject?.type === 'tamagotchi' ? 'rainbow-pulse 3s infinite' : 'none',
           boxShadow: selectedObject?.type === 'gameboy'
@@ -267,6 +280,8 @@ function App() {
             ? 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05)'
             : selectedObject?.type === 'tamagotchi'
             ? '0 0 20px #FF1493, 0 0 40px #FF69B4, 0 0 60px #00BFFF'
+            : selectedObject?.type === 'imacG3'
+            ? 'inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 10px 30px rgba(0, 149, 182, 0.2), 0 4px 12px rgba(0, 201, 255, 0.1)'
             : 'none'
         }}
       >
@@ -338,6 +353,11 @@ function App() {
                     isZoomedIn={isZoomedIn}
                   />
                 </div>
+              ) : selectedObject.type === 'imacG3' ? (
+                <IMacG3MemoryCapsule 
+                  onSelect={(item) => console.log('Selected iMac G3 item:', item)}
+                  onColorChange={(color) => setSelectedIMacColor(color)}
+                />
               ) : (
                 <div>
                   <h4 className={`font-semibold mb-4 text-white/90 ${
