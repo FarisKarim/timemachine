@@ -7,8 +7,20 @@ import { Timeline } from './Timeline';
 import { Camera } from './Camera';
 import { PS2FloatingTowers } from './PS2FloatingTowers';
 import { preloadModels } from '../../utils/modelLoader';
+import { nostalgicObjects } from '../../data/objects';
 
-export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, selectedObject, isZoomedIn, isMobile, selectedIMacColor }) => {
+export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZoomedIn, isMobile, selectedIMacColor }) => {
+  // Convert ID back to object inside Scene
+  const selectedObject = selectedObjectId ? nostalgicObjects.find(obj => obj.id === selectedObjectId) : null;
+  
+  // Performance logging - see when Scene actually re-renders
+  console.log('🎬 Scene RE-RENDER:', {
+    selectedObjectId,
+    isZoomedIn,
+    isMobile,
+    selectedIMacColor,
+    timestamp: Date.now()
+  });
   useEffect(() => {
     // Preload all models
     preloadModels();
@@ -52,7 +64,6 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
         
         <Suspense fallback={null}>
           <Camera 
-            scrollProgress={scrollProgress}
             scrollProgressRef={scrollProgressRef}
             selectedObject={selectedObject}
             isZoomedIn={isZoomedIn}
@@ -81,7 +92,7 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
           )}
           
           <Lighting 
-            scrollProgress={scrollProgress}
+            scrollProgressRef={scrollProgressRef}
             isZoomedIn={isZoomedIn}
           />
           <Timeline 

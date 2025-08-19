@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 
-export const Camera = ({ scrollProgress, scrollProgressRef, selectedObject, isZoomedIn }) => {
+export const Camera = ({ scrollProgressRef, selectedObject, isZoomedIn }) => {
   const cameraRef = useRef();
   const hasZoomedRef = useRef(false);
   
@@ -32,7 +32,7 @@ export const Camera = ({ scrollProgress, scrollProgressRef, selectedObject, isZo
       hasZoomedRef.current = false;
       
       // Normal timeline navigation - use ref for immediate response
-      const currentProgress = scrollProgressRef?.current ?? scrollProgress;
+      const currentProgress = scrollProgressRef?.current ?? 0;
       const targetX = currentProgress * 15 - 7.5;
       const targetY = 2 + Math.sin(currentProgress * Math.PI) * 0.5;
       const targetZ = 8 - currentProgress * 2;

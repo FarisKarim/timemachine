@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import soundManager from '../utils/soundManager';
 
 export const useAudioManager = () => {
@@ -45,7 +45,7 @@ export const useAudioManager = () => {
     setVolume(newVolume);
   };
 
-  const playSound = (soundType, objectId = null) => {
+  const playSound = useCallback((soundType, objectId = null) => {
     switch(soundType) {
       case 'hover':
         soundManager.playHover();
@@ -62,7 +62,7 @@ export const useAudioManager = () => {
         }
         break;
     }
-  };
+  }, []); // No dependencies - soundManager is stable
 
   return {
     isMuted,

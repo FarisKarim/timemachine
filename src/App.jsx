@@ -1,5 +1,23 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Scene } from './components/3d/Scene';
+
+const MemoScene = memo(Scene, (prevProps, nextProps) => {
+  // Custom comparison - log what changed
+  const changed = {};
+  Object.keys(nextProps).forEach(key => {
+    if (prevProps[key] !== nextProps[key]) {
+      changed[key] = { prev: prevProps[key], next: nextProps[key] };
+    }
+  });
+  
+  if (Object.keys(changed).length > 0) {
+    console.log('🔍 MemoScene props changed:', changed);
+    return false; // Re-render
+  }
+  
+  console.log('✋ MemoScene blocked re-render - no prop changes');
+  return true; // Block re-render
+});
 import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
 import { TamagotchiMemoryCapsule } from './components/ui/TamagotchiMemoryCapsule';
 import { IPodMemoryCapsule } from './components/ui/iPodMemoryCapsule';
@@ -12,8 +30,9 @@ import { nostalgicObjects } from './data/objects';
 import './App.css';
 
 function App() {
+  console.log('📱 App RE-RENDER - checking if Scene should re-render too...');
+  
   const [selectedObject, setSelectedObject] = useState(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [selectedIMacColor, setSelectedIMacColor] = useState('#0369a1'); // Default Bondi Blue
   const scrollProgressRef = useRef(0);
@@ -22,7 +41,7 @@ function App() {
 
   // Touch controls for mobile
   const handleTouchScroll = (delta) => {
-    setScrollProgress(prev => Math.max(0, Math.min(1, prev + delta)));
+    scrollProgressRef.current = Math.max(0, Math.min(1, scrollProgressRef.current + delta));
   };
 
   const { isDragging } = useTouchControls({
@@ -30,13 +49,13 @@ function App() {
     isEnabled: isMobile && !isZoomedIn
   });
 
-  const handleObjectClick = (object) => {
+  const handleObjectClick = useCallback((object) => {
     setSelectedObject(object);
     setIsZoomedIn(true);
     playSound('click');
     setTimeout(() => playSound('object', object.id), 300);
     console.log('Clicked object:', object.name);
-  };
+  }, [playSound]);
 
   const handleGameSelect = (game) => {
     console.log('Selected game:', game.title);
@@ -97,9 +116,7 @@ function App() {
       
       // Update position directly using ref to avoid stale closure
       const currentProgress = scrollProgressRef.current;
-      const newProgress = Math.max(0, Math.min(1, currentProgress + deltaPosition));
-      setScrollProgress(newProgress);
-      scrollProgressRef.current = newProgress;
+      scrollProgressRef.current = Math.max(0, Math.min(1, currentProgress + deltaPosition));
     };
 
     const handleKeyDown = (e) => {
@@ -109,7 +126,7 @@ function App() {
           if (isZoomedIn) {
             navigateToAdjacentObject('left');
           } else {
-            setScrollProgress(prev => Math.max(0, prev - 0.1));
+            scrollProgressRef.current = Math.max(0, scrollProgressRef.current - 0.1);
           }
           break;
         case 'ArrowRight':
@@ -117,7 +134,7 @@ function App() {
           if (isZoomedIn) {
             navigateToAdjacentObject('right');
           } else {
-            setScrollProgress(prev => Math.min(1, prev + 0.1));
+            scrollProgressRef.current = Math.min(1, scrollProgressRef.current + 0.1);
           }
           break;
         case 'Escape':
@@ -143,11 +160,10 @@ function App() {
     <div className="relative overflow-hidden">
       {/* 3D Scene */}
       <div className="fixed inset-0 w-full h-full z-0">
-        <Scene 
+        <MemoScene 
           onObjectClick={handleObjectClick} 
-          scrollProgress={scrollProgress}
           scrollProgressRef={scrollProgressRef}
-          selectedObject={selectedObject}
+          selectedObjectId={selectedObject?.id}
           isZoomedIn={isZoomedIn}
           isMobile={isMobile}
           selectedIMacColor={selectedIMacColor}
