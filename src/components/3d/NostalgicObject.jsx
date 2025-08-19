@@ -148,8 +148,12 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
       {/* Object label - hide when zoomed for cleaner view */}
       {!isZoomedIn && (
         <Text
-          position={[0, -1, 0]}
-          fontSize={0.25}
+          position={
+            object.type === 'imacG3' ? [-1.2, -1, 0] : 
+            object.type === 'ipod' ? [0, -1.8, 0] : 
+            [0, -1, 0]
+          }
+          fontSize={0.35}
           color="#ffffff"
           anchorX="center"
           anchorY="middle"

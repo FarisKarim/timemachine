@@ -193,35 +193,29 @@ function App() {
         isMobile ? 'flex-col' : 'flex-row'
       }`}>
         <button 
-          className={`bg-white/10 hover:bg-white/20 text-white rounded-lg backdrop-blur-sm transition-colors ${
-            isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2'
-          }`}
+          className="y2k-start-button"
           onClick={() => {
-            setScrollProgress(prev => Math.max(0, prev - 0.2));
-            playSound('click');
+            const gameboy = nostalgicObjects[0]; // First object is Game Boy
+            handleObjectClick(gameboy);
           }}
         >
-          {isMobile ? '←' : '← Prev'}
-        </button>
-        <button 
-          className={`bg-white/10 hover:bg-white/20 text-white rounded-lg backdrop-blur-sm transition-colors ${
-            isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2'
-          }`}
-          onClick={() => {
-            setScrollProgress(prev => Math.min(1, prev + 0.2));
-            playSound('click');
-          }}
-        >
-          {isMobile ? '→' : 'Next →'}
+          <span className="y2k-play-icon"></span>
+          Start Journey
         </button>
         
         {/* Audio Controls */}
         <button 
-          className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg backdrop-blur-sm transition-colors text-sm"
+          className={`y2k-sound-button ${isMuted ? 'muted' : 'unmuted'}`}
           onClick={toggleMute}
           title={isMuted ? 'Unmute' : 'Mute'}
         >
-          {isMuted ? '🔇' : '🔊'}
+          <div className={`equalizer-container ${isMuted ? 'muted' : 'animated'}`}>
+            <div className="eq-bar eq-bar-1"></div>
+            <div className="eq-bar eq-bar-2"></div>
+            <div className="eq-bar eq-bar-3"></div>
+            <div className="eq-bar eq-bar-4"></div>
+            <div className="eq-bar eq-bar-5"></div>
+          </div>
         </button>
       </div>
       
