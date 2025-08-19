@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Stats } from '@react-three/drei';
+import { Perf } from 'r3f-perf';
 import { Lighting } from './Lighting';
 import { Timeline } from './Timeline';
 import { Camera } from './Camera';
@@ -45,6 +46,10 @@ export const Scene = ({ onObjectClick, scrollProgress, scrollProgressRef, select
               : '#000000'  // Default black
           ]} 
         />
+        {/* Performance Monitors */}
+        <Stats showPanel={0} className="stats-monitor" />
+        <Perf position="top-left" />
+        
         <Suspense fallback={null}>
           <Camera 
             scrollProgress={scrollProgress}

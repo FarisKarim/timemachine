@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Scene } from './components/3d/Scene';
 import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
 import { TamagotchiMemoryCapsule } from './components/ui/TamagotchiMemoryCapsule';
@@ -8,6 +8,7 @@ import IMacG3MemoryCapsule from './components/ui/IMacG3MemoryCapsule';
 import { useAudioManager } from './hooks/useAudioManager';
 import { useMobileDetection } from './hooks/useMobileDetection';
 import { useTouchControls } from './hooks/useTouchControls';
+import { nostalgicObjects } from './data/objects';
 import './App.css';
 
 function App() {
@@ -60,6 +61,25 @@ function App() {
     }, 800);
   };
 
+  const navigateToAdjacentObject = useCallback((direction) => {
+    if (!selectedObject || !isZoomedIn) return;
+    
+    const currentIndex = nostalgicObjects.findIndex(obj => obj.id === selectedObject.id);
+    if (currentIndex === -1) return;
+    
+    let nextIndex;
+    if (direction === 'right') {
+      nextIndex = (currentIndex + 1) % nostalgicObjects.length;
+    } else {
+      nextIndex = (currentIndex - 1 + nostalgicObjects.length) % nostalgicObjects.length;
+    }
+    
+    const nextObject = nostalgicObjects[nextIndex];
+    setSelectedObject(nextObject);
+    playSound('click');
+    setTimeout(() => playSound('object', nextObject.id), 300);
+  }, [selectedObject, isZoomedIn, playSound]);
+
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -85,14 +105,18 @@ function App() {
     const handleKeyDown = (e) => {
       switch(e.key) {
         case 'ArrowLeft':
-          if (!isZoomedIn) {
-            e.preventDefault();
+          e.preventDefault();
+          if (isZoomedIn) {
+            navigateToAdjacentObject('left');
+          } else {
             setScrollProgress(prev => Math.max(0, prev - 0.1));
           }
           break;
         case 'ArrowRight':
-          if (!isZoomedIn) {
-            e.preventDefault();
+          e.preventDefault();
+          if (isZoomedIn) {
+            navigateToAdjacentObject('right');
+          } else {
             setScrollProgress(prev => Math.min(1, prev + 0.1));
           }
           break;
@@ -113,7 +137,7 @@ function App() {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isZoomedIn]);
+  }, [isZoomedIn, navigateToAdjacentObject]);
 
   return (
     <div className="relative overflow-hidden">
@@ -144,30 +168,25 @@ function App() {
           ? (isMobile ? 'left-4' : 'left-[28rem]')
           : 'left-4 md:left-8'
       }`}>
-        <h1 className={`font-bold mb-2 text-shadow-lg ${isMobile ? 'text-2xl' : 'text-4xl'}`}>
+        <h1 className={`tm2000s-logo mb-2 ${isMobile ? 'text-2xl' : 'text-4xl'} ${
+          selectedObject?.type === 'gameboy' && isZoomedIn 
+            ? 'gameboy-theme'
+            : selectedObject?.type === 'imacG3' && isZoomedIn 
+            ? 'imac-theme'
+            : selectedObject?.type === 'tamagotchi' && isZoomedIn 
+            ? 'tamagotchi-theme'
+            : ''
+        }`}>
           TM2000s
         </h1>
         <p className={`opacity-80 ${isMobile ? 'text-sm' : 'text-lg'}`}>
           {isZoomedIn 
             ? 'Exploring memories...' 
-            : (isMobile ? 'Swipe to explore' : 'Scroll or use arrow keys to explore')
+            : ''
           }
         </p>
       </div>
 
-      {/* Audio Permission Prompt - only show if audio not yet started */}
-      {!audioStarted && !isZoomedIn && (
-        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-20 pointer-events-auto">
-          <button 
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 text-white rounded-full backdrop-blur-md transition-all duration-300 border border-white/20 text-sm animate-pulse shadow-lg"
-            onClick={() => {
-              playSound('click');
-            }}
-          >
-            🎵 Enable Audio Experience
-          </button>
-        </div>
-      )}
       
       {/* Navigation Controls - responsive */}
       <div className={`fixed top-4 md:top-8 right-4 md:right-8 z-20 flex gap-1 md:gap-2 ${
@@ -206,18 +225,6 @@ function App() {
         </button>
       </div>
       
-      {/* Scroll progress indicator */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
-        <div className="w-64 h-2 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
-          <div 
-            className="h-full bg-gradient-to-r from-purple-400 to-orange-400 transition-all duration-300 ease-out"
-            style={{ width: `${scrollProgress * 100}%` }}
-          />
-        </div>
-        <div className="text-center text-white text-sm mt-2 opacity-70">
-          {Math.round(scrollProgress * 100)}% explored
-        </div>
-      </div>
         
       {/* Memory Sidebar - responsive with dynamic styling */}
       <div 
