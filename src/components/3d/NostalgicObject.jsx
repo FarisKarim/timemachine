@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,10 +6,55 @@ import soundManager from '../../utils/soundManager';
 import { SuspendedModel } from './Model';
 import { MODEL_PATHS, MODEL_SCALES, MODEL_ROTATIONS } from '../../utils/modelLoader';
 
+const TEXT_STYLES = {
+  gameboy: {
+    color: '#E5E7EB',
+    outlineColor: '#3B82F6',
+    outlineWidth: 0.02,
+    fontSize: 0.4
+  },
+  tamagotchi: {
+    color: '#FFB6C1',
+    outlineColor: '#FF69B4',
+    outlineWidth: 0.015,
+    fontSize: 0.35
+  },
+  imacG3: {
+    color: '#00C9FF',
+    outlineColor: '#FFFFFF',
+    outlineWidth: 0.02,
+    fontSize: 0.36
+  },
+  ps2: {
+    color: '#00BFFF',
+    outlineColor: '#E5E7EB',
+    outlineWidth: 0.025,
+    fontSize: 0.38
+  },
+  ipod: {
+    color: '#FFFFFF',
+    outlineColor: '#9CA3AF',
+    outlineWidth: 0.01,
+    fontSize: 0.32
+  }
+};
+
+const DEFAULT_TEXT_STYLE = {
+  color: '#FFFFFF',
+  outlineColor: 'transparent',
+  outlineWidth: 0,
+  fontSize: 0.35
+};
+
 export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn }) => {
   const meshRef = useRef();
   const glowRef = useRef();
   const [hovered, setHovered] = useState(false);
+
+  const textStyle = useMemo(() => 
+    TEXT_STYLES[object.type] || DEFAULT_TEXT_STYLE, 
+    [object.type]
+  );
 
   // Floating animation
   useFrame((state) => {
@@ -153,8 +198,10 @@ export const NostalgicObject = ({ object, onObjectClick, isSelected, isZoomedIn 
             object.type === 'ipod' ? [0, -1.8, 0] : 
             [0, -1, 0]
           }
-          fontSize={0.35}
-          color="#ffffff"
+          fontSize={textStyle.fontSize}
+          color={textStyle.color}
+          outlineColor={textStyle.outlineColor}
+          outlineWidth={textStyle.outlineWidth}
           anchorX="center"
           anchorY="middle"
         >
