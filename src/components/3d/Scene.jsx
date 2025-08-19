@@ -27,7 +27,7 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full h-full">
+    <div className="fixed inset-0 w-full h-full y2k-chrome-timeline">
       <Canvas
         shadows
         camera={{ 
@@ -36,28 +36,30 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
         }}
         gl={{ 
           antialias: !isMobile, // Disable antialiasing on mobile for performance
-          alpha: false,
+          alpha: true,  // Enable transparency to show CSS background
           powerPreference: isMobile ? "default" : "high-performance"
         }}
         dpr={isMobile ? [1, 1.5] : [1, 2]} // Lower DPR on mobile
       >
-        {/* Dynamic scene background based on selected object */}
-        <color 
-          attach="background" 
-          args={[
-            selectedObject?.type === 'gameboy' && isZoomedIn 
-              ? '#4c1d95'  // Deep royal purple (Pokémon intro vibes)
-              : selectedObject?.type === 'imacG3' && isZoomedIn 
-              ? selectedIMacColor || '#0369a1'  // Dynamic iMac G3 color
-              : selectedObject?.type === 'tamagotchi' && isZoomedIn 
-              ? '#FFB6C1'  // Soft pastel pink (kawaii aesthetic)
-              : selectedObject?.type === 'ps2' && isZoomedIn 
-              ? '#000011'  // PS2 deep space void
-              : selectedObject?.type === 'ipod' && isZoomedIn 
-              ? '#1e3a8a'  // iPod blue
-              : '#000000'  // Default black
-          ]} 
-        />
+        {/* Object-specific backgrounds only when zoomed - timeline shows CSS background */}
+        {selectedObject && isZoomedIn && (
+          <color 
+            attach="background" 
+            args={[
+              selectedObject?.type === 'gameboy' 
+                ? '#4c1d95'  // Deep royal purple (Pokémon intro vibes)
+                : selectedObject?.type === 'imacG3' 
+                ? selectedIMacColor || '#0369a1'  // Dynamic iMac G3 color
+                : selectedObject?.type === 'tamagotchi' 
+                ? '#FFB6C1'  // Soft pastel pink (kawaii aesthetic)
+                : selectedObject?.type === 'ps2' 
+                ? '#000011'  // PS2 deep space void
+                : selectedObject?.type === 'ipod' 
+                ? '#1e3a8a'  // iPod blue
+                : 'rgba(0, 0, 0, 0.3)'  // Semi-transparent fallback
+            ]} 
+          />
+        )}
         {/* Performance Monitors */}
         <Stats showPanel={0} className="stats-monitor" />
         <Perf position="top-left" />

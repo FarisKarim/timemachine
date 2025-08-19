@@ -20,8 +20,8 @@ const TEXT_STYLES = {
     fontSize: 0.35
   },
   imacG3: {
-    color: '#00C9FF',
-    outlineColor: '#FFFFFF',
+    color: '#0369a1',
+    outlineColor: '#1e293b',
     outlineWidth: 0.02,
     fontSize: 0.36
   },
@@ -32,9 +32,9 @@ const TEXT_STYLES = {
     fontSize: 0.38
   },
   ipod: {
-    color: '#FFFFFF',
-    outlineColor: '#9CA3AF',
-    outlineWidth: 0.01,
+    color: '#1e293b',
+    outlineColor: '#475569',
+    outlineWidth: 0.02,
     fontSize: 0.32
   }
 };

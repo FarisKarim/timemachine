@@ -915,6 +915,72 @@ canvas:active {
   pointer-events: none;
 }
 
+/* Y2K Shooting Star Sparkles - always visible */
+.y2k-start-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+  background-image: 
+    /* Shooting Star 1 - Electric Blue */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 45%, 
+      #00BFFF 50%, 
+      rgba(0, 191, 255, 0.8) 52%, 
+      rgba(0, 191, 255, 0.4) 55%, 
+      rgba(0, 191, 255, 0.1) 60%, 
+      transparent 65%),
+    
+    /* Shooting Star 2 - Hot Pink */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 35%, 
+      #FF1493 40%, 
+      rgba(255, 20, 147, 0.8) 42%, 
+      rgba(255, 20, 147, 0.4) 45%, 
+      rgba(255, 20, 147, 0.1) 50%, 
+      transparent 55%),
+    
+    /* Shooting Star 3 - Lime Green */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 55%, 
+      #00FF7F 60%, 
+      rgba(0, 255, 127, 0.8) 62%, 
+      rgba(0, 255, 127, 0.4) 65%, 
+      rgba(0, 255, 127, 0.1) 70%, 
+      transparent 75%),
+    
+    /* Shooting Star 4 - Gold */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 25%, 
+      #FFD700 30%, 
+      rgba(255, 215, 0, 0.8) 32%, 
+      rgba(255, 215, 0, 0.4) 35%, 
+      rgba(255, 215, 0, 0.1) 40%, 
+      transparent 45%);
+  
+  background-size: 
+    200% 2px,    /* Thin horizontal shooting stars */
+    200% 2px,
+    200% 2px,
+    200% 2px;
+  
+  background-repeat: no-repeat;
+  background-position: 
+    -200% 25%,   /* Electric blue - top */
+    -200% 85%,   /* Hot pink - moved down below text */
+    -200% 75%,   /* Lime green - bottom */
+    -200% 40%;   /* Gold - middle */
+  
+  animation: y2k-shooting-stars 2.5s ease-in-out infinite;
+}
+
 /* Hover effects - Chrome/metallic transformation */
 .y2k-start-button:hover {
   /* Chrome gradient - shiny metallic silver */
@@ -948,6 +1014,54 @@ canvas:active {
   left: 100%;
 }
 
+/* Enhance shooting stars on hover */
+.y2k-start-button:hover::after {
+  opacity: 1;
+  animation: y2k-shooting-stars 1.8s ease-in-out infinite;
+  
+  /* Chrome-themed shooting stars - silver and metallic colors */
+  background-image: 
+    /* Chrome Shooting Star 1 - Silver */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 45%, 
+      #f8fafc 50%, 
+      rgba(248, 250, 252, 0.8) 52%, 
+      rgba(226, 232, 240, 0.4) 55%, 
+      rgba(203, 213, 225, 0.1) 60%, 
+      transparent 65%),
+    
+    /* Chrome Shooting Star 2 - Steel */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 35%, 
+      #94a3b8 40%, 
+      rgba(148, 163, 184, 0.8) 42%, 
+      rgba(100, 116, 139, 0.4) 45%, 
+      rgba(71, 85, 105, 0.1) 50%, 
+      transparent 55%),
+    
+    /* Chrome Shooting Star 3 - White */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 55%, 
+      #ffffff 60%, 
+      rgba(255, 255, 255, 0.8) 62%, 
+      rgba(241, 245, 249, 0.4) 65%, 
+      rgba(226, 232, 240, 0.1) 70%, 
+      transparent 75%),
+    
+    /* Chrome Shooting Star 4 - Light Steel */
+    linear-gradient(90deg, 
+      transparent 0%, 
+      transparent 25%, 
+      #cbd5e1 30%, 
+      rgba(203, 213, 225, 0.8) 32%, 
+      rgba(148, 163, 184, 0.4) 35%, 
+      rgba(100, 116, 139, 0.1) 40%, 
+      transparent 45%);
+}
+
 /* Dark play icon on hover to match text */
 .y2k-start-button:hover .y2k-play-icon {
   border-left-color: #1e293b;
@@ -968,6 +1082,59 @@ canvas:active {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Y2K Shooting Stars Animation */
+@keyframes y2k-shooting-stars {
+  0% {
+    background-position: 
+      -200% 25%,   /* All stars start off-screen left */
+      -200% 85%,   /* Hot pink at new position */
+      -200% 75%,
+      -200% 40%;
+  }
+  20% {
+    background-position: 
+      -50% 25%,    /* First star enters */
+      -200% 85%,   /* Hot pink still off-screen */
+      -200% 75%,
+      -200% 40%;
+  }
+  35% {
+    background-position: 
+      50% 25%,     /* First star in center */
+      -50% 85%,    /* Hot pink enters */
+      -200% 75%,
+      -200% 40%;
+  }
+  50% {
+    background-position: 
+      150% 25%,    /* First star exits */
+      50% 85%,     /* Hot pink in center */
+      -50% 75%,    /* Third star enters */
+      -100% 40%;   /* Fourth star starting */
+  }
+  65% {
+    background-position: 
+      200% 25%,    /* First star off-screen right */
+      150% 85%,    /* Hot pink exits */
+      50% 75%,     /* Third star in center */
+      0% 40%;      /* Fourth star enters */
+  }
+  80% {
+    background-position: 
+      200% 25%,
+      200% 85%,    /* Hot pink off-screen */
+      150% 75%,    /* Third star exits */
+      80% 40%;     /* Fourth star in center */
+  }
+  100% {
+    background-position: 
+      200% 25%,    /* All stars off-screen right */
+      200% 85%,    /* Hot pink at new position */
+      200% 75%,
+      200% 40%;
+  }
 }
 
 /* Add retro icon - play button triangle */
@@ -995,6 +1162,103 @@ canvas:active {
     border-left-width: 8px;
     border-top-width: 5px;
     border-bottom-width: 5px;
+  }
+  
+  /* Simplified shooting stars on mobile for performance */
+  .y2k-start-button::after {
+    background-image: 
+      /* Fewer shooting stars on mobile */
+      linear-gradient(90deg, 
+        transparent 0%, 
+        transparent 40%, 
+        #00BFFF 45%, 
+        rgba(0, 191, 255, 0.6) 50%, 
+        rgba(0, 191, 255, 0.2) 55%, 
+        transparent 60%),
+      
+      linear-gradient(90deg, 
+        transparent 0%, 
+        transparent 50%, 
+        #FF1493 55%, 
+        rgba(255, 20, 147, 0.6) 60%, 
+        rgba(255, 20, 147, 0.2) 65%, 
+        transparent 70%);
+    
+    background-size: 
+      200% 1.5px,    /* Thinner stars on mobile */
+      200% 1.5px;
+    
+    background-position: 
+      -200% 35%,
+      -200% 65%;
+    
+    animation: y2k-shooting-stars-mobile 3s ease-in-out infinite; /* Slower for mobile */
+  }
+  
+  /* Chrome shooting stars on hover - simplified for mobile */
+  .y2k-start-button:hover::after {
+    background-image: 
+      linear-gradient(90deg, 
+        transparent 0%, 
+        transparent 40%, 
+        #f8fafc 45%, 
+        rgba(248, 250, 252, 0.6) 50%, 
+        rgba(226, 232, 240, 0.2) 55%, 
+        transparent 60%),
+      
+      linear-gradient(90deg, 
+        transparent 0%, 
+        transparent 50%, 
+        #94a3b8 55%, 
+        rgba(148, 163, 184, 0.6) 60%, 
+        rgba(100, 116, 139, 0.2) 65%, 
+        transparent 70%);
+  }
+}
+
+/* Mobile shooting stars animation - simplified */
+@keyframes y2k-shooting-stars-mobile {
+  0% {
+    background-position: 
+      -200% 35%,
+      -200% 65%;
+  }
+  50% {
+    background-position: 
+      50% 35%,
+      0% 65%;
+  }
+  100% {
+    background-position: 
+      200% 35%,
+      200% 65%;
+  }
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .y2k-start-button::after {
+    animation: none !important;
+  }
+  
+  .y2k-start-button:hover::after {
+    animation: none !important;
+    opacity: 0.7; /* Still show shooting stars but without animation */
+    background-position: 
+      50% 25%,   /* Static positions for accessibility */
+      50% 50%,
+      50% 75%,
+      50% 40% !important;
+  }
+  
+  @keyframes y2k-shooting-stars {
+    0%, 100% { 
+      background-position: 
+        50% 25%,
+        50% 50%,
+        50% 75%,
+        50% 40%;
+    }
   }
 }
 
@@ -1190,4 +1454,103 @@ canvas:active {
   .eq-bar-4 { height: 8px; }
   .eq-bar-5 { height: 5px; }
 }
+
+/* Y2K Chrome Timeline Background */
+.y2k-chrome-timeline {
+  /* Layer 1: Balanced chrome gradient with noticeable flow */
+  background: linear-gradient(45deg, 
+    #ffffff 0%,    /* Pure white */
+    #f1f5f9 25%,   /* Very light silver */
+    #e2e8f0 40%,   /* Light silver */
+    #cbd5e1 50%,   /* Chrome silver */
+    #e2e8f0 60%,   /* Back to light silver */
+    #f1f5f9 75%,   /* Back to very light silver */
+    #ffffff 100%   /* Pure white */
+  );
+  
+  /* Background sizes - balanced for noticeable movement */
+  background-size: 200% 200%;
+  
+  /* Chrome flow animation */
+  animation: chrome-flow 8s linear infinite;
+  
+  /* Position relative for shimmer overlay */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Y2K Chrome Shimmer Sweep Effect */
+.y2k-chrome-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.0) 35%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.3) 55%,
+    rgba(255, 255, 255, 0.0) 65%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 8s ease-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmer-sweep {
+  0% { left: -100%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* Reset to shimmer sweep (keeping it) */
+.y2k-chrome-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.0) 35%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.3) 55%,
+    rgba(255, 255, 255, 0.0) 65%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 8s ease-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* Chrome flow animation - liquid metal effect */
+@keyframes chrome-flow {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Mobile performance optimization - reduce complexity */
+@media (max-width: 768px) {
+  .y2k-chrome-timeline {
+    /* Simplified background for mobile */
+    background: linear-gradient(45deg, 
+      #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%
+    );
+    background-size: 150% 150%;
+    animation: chrome-flow 12s linear infinite;
+  }
+  
+}
+
 
