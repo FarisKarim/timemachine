@@ -27,7 +27,7 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full h-full y2k-chrome-timeline">
+    <div className={`fixed inset-0 w-full h-full ${!isZoomedIn ? 'y2k-chrome-timeline' : ''}`}>
       <Canvas
         shadows
         camera={{ 

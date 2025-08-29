@@ -11,6 +11,69 @@ class SoundManager {
     
     // Set global volume
     Howler.volume(this.volume);
+    
+    // Load external Game Boy Advance sound
+    this.gameboySound = new Howl({
+      src: ['/sounds/gba.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external iMac G3 sound
+    this.imacSound = new Howl({
+      src: ['/sounds/imacg3.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external PS2 sound
+    this.ps2Sound = new Howl({
+      src: ['/sounds/ps2.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external Tamagotchi sound
+    this.tamagotchiSound = new Howl({
+      src: ['/sounds/tamagotchi.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external iPod sound
+    this.ipodSound = new Howl({
+      src: ['/sounds/ipod.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external Pokémon Emerald sound
+    this.emeraldSound = new Howl({
+      src: ['/sounds/emeraldstart.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external Pokémon Fire Red sound
+    this.fireRedSound = new Howl({
+      src: ['/sounds/firered.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external Mario Kart sound
+    this.marioKartSound = new Howl({
+      src: ['/sounds/mariokart.mp3'],
+      volume: 0.5,
+      preload: true
+    });
+    
+    // Load external Link's Awakening sound
+    this.linkSound = new Howl({
+      src: ['/sounds/link.mp3'],
+      volume: 0.5,
+      preload: true
+    });
   }
 
   // Generate audio using Web Audio API for better compatibility
@@ -36,11 +99,6 @@ class SoundManager {
     oscillator.stop(this.audioContext.currentTime + duration);
   }
 
-  generateChord(frequencies, duration, volume = 0.2) {
-    frequencies.forEach(freq => {
-      this.generateTone(freq, duration, 'sine', volume / frequencies.length);
-    });
-  }
 
   initializeSounds() {
     if (this.initialized) return;
@@ -64,36 +122,6 @@ class SoundManager {
     }
   }
 
-  playAmbient() {
-    if (!this.isEnabled) return;
-    
-    this.initializeSounds();
-    
-    // Generate a gentle ambient chord progression
-    const ambientChords = [
-      [220, 277, 330], // A minor
-      [196, 247, 294], // G major
-      [165, 208, 247], // E minor
-      [175, 220, 262]  // F major
-    ];
-    
-    let chordIndex = 0;
-    const playChord = () => {
-      if (this.isEnabled) {
-        this.generateChord(ambientChords[chordIndex], 3, 0.1);
-        chordIndex = (chordIndex + 1) % ambientChords.length;
-        setTimeout(playChord, 4000); // Play next chord after 4 seconds
-      }
-    };
-    
-    playChord();
-    console.log('🎵 Ambient music started');
-  }
-
-  stopAmbient() {
-    // Ambient tones will naturally fade out
-    console.log('🔇 Ambient music stopped');
-  }
 
   playHover() {
     if (!this.isEnabled) return;
@@ -113,58 +141,34 @@ class SoundManager {
     setTimeout(() => this.generateTone(800, 0.04, 'sine', 0.2), 40);
   }
 
-  playWhoosh() {
-    if (!this.isEnabled) return;
-    this.initializeSounds();
-    
-    // Whoosh sound - frequency sweep
-    if (this.audioContext) {
-      const oscillator = this.audioContext.createOscillator();
-      const gainNode = this.audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(this.audioContext.destination);
-      
-      oscillator.type = 'sawtooth';
-      oscillator.frequency.setValueAtTime(200, this.audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(80, this.audioContext.currentTime + 0.5);
-      
-      gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.5);
-      
-      oscillator.start(this.audioContext.currentTime);
-      oscillator.stop(this.audioContext.currentTime + 0.5);
-    }
-  }
 
-  // Play enhanced Game Boy game-specific audio
+  // Play Game Boy game-specific audio
   playGameAudio(gameId) {
     if (!this.isEnabled) return;
     this.initializeSounds();
     
-    const audioCue = gameboyData.audioCues[gameId];
-    if (!audioCue) return;
-    
-    if (audioCue.type === 'sequence') {
-      // Play sequence of tones
-      audioCue.sounds.forEach(sound => {
-        setTimeout(() => {
-          this.generateTone(
-            sound.frequency, 
-            sound.duration, 
-            sound.type || 'square', 
-            0.3
-          );
-        }, sound.delay);
-      });
-    } else if (audioCue.type === 'melody') {
-      // Play simple melody
-      audioCue.notes.forEach((frequency, index) => {
-        setTimeout(() => {
-          this.generateTone(frequency, 0.15, 'square', 0.25);
-        }, index * 150);
-      });
+    // Only play external sound files
+    if (gameId === 'pokemon-emerald' && this.emeraldSound) {
+      this.emeraldSound.play();
+      return;
     }
+    
+    if (gameId === 'pokemon-fire-red' && this.fireRedSound) {
+      this.fireRedSound.play();
+      return;
+    }
+    
+    if (gameId === 'mario-kart' && this.marioKartSound) {
+      this.marioKartSound.play();
+      return;
+    }
+    
+    if (gameId === 'zelda-links-awakening' && this.linkSound) {
+      this.linkSound.play();
+      return;
+    }
+    
+    // No fallback - games without MP3 files will be silent
   }
 
   playObjectSound(objectId) {
@@ -180,73 +184,34 @@ class SoundManager {
     // Map object IDs to specific generated sounds
     switch(objectId) {
       case 'gameboy':
-        // Enhanced Game Boy power-on sound
-        this.playGameAudio('powerOn');
-        break;
-      case 'lego-brick':
-        // Plastic click sounds
-        this.generateTone(2000, 0.02, 'square', 0.5);
-        setTimeout(() => this.generateTone(1500, 0.02, 'square', 0.3), 20);
-        break;
-      case 'ps2':
-        // PS2 startup sound (simplified version)
-        if (this.audioContext) {
-          // Low hum
-          const oscillator1 = this.audioContext.createOscillator();
-          const gainNode1 = this.audioContext.createGain();
-          
-          oscillator1.connect(gainNode1);
-          gainNode1.connect(this.audioContext.destination);
-          
-          oscillator1.type = 'sine';
-          oscillator1.frequency.setValueAtTime(110, this.audioContext.currentTime);
-          
-          gainNode1.gain.setValueAtTime(0, this.audioContext.currentTime);
-          gainNode1.gain.linearRampToValueAtTime(0.2, this.audioContext.currentTime + 0.1);
-          gainNode1.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + 0.4);
-          
-          oscillator1.start(this.audioContext.currentTime);
-          oscillator1.stop(this.audioContext.currentTime + 0.4);
-          
-          // Higher harmonics
-          setTimeout(() => {
-            this.generateTone(220, 0.2, 'sine', 0.15);
-            setTimeout(() => this.generateTone(440, 0.15, 'sine', 0.1), 100);
-          }, 150);
+        // Play external Game Boy Advance sound
+        if (this.gameboySound && this.isEnabled) {
+          this.gameboySound.play();
         }
         break;
-      case 'imacG3':
-        // Classic Mac startup chime (simplified version)
-        if (this.audioContext) {
-          // Mac startup chord progression
-          const chordTimes = [0, 0.3, 0.6, 0.9];
-          const chords = [
-            [523, 659, 784], // C major
-            [587, 740, 880], // D major  
-            [659, 831, 988], // E major
-            [698, 880, 1047] // F major
-          ];
-          
-          chords.forEach((chord, index) => {
-            setTimeout(() => {
-              chord.forEach(freq => {
-                this.generateTone(freq, 0.4, 'sine', 0.15);
-              });
-            }, chordTimes[index] * 1000);
-          });
+      case 'ps2':
+        // Play external PS2 sound
+        if (this.ps2Sound && this.isEnabled) {
+          this.ps2Sound.play();
+        }
+        break;
+      case 'imac-g3':
+        // Play external iMac G3 sound
+        if (this.imacSound && this.isEnabled) {
+          this.imacSound.play();
         }
         break;
       case 'tamagotchi':
-        // Digital pet beep
-        this.generateTone(1047, 0.08, 'square', 0.4); // C6
-        setTimeout(() => this.generateTone(1319, 0.06, 'square', 0.3), 100); // E6
-        setTimeout(() => this.generateTone(1047, 0.04, 'square', 0.2), 180); // C6
+        // Play external Tamagotchi sound
+        if (this.tamagotchiSound && this.isEnabled) {
+          this.tamagotchiSound.play();
+        }
         break;
-      case 'gameboy':
-        // Classic GameBoy power-on chime (iconic startup sound)
-        this.generateTone(659, 0.2, 'square', 0.4); // E5
-        setTimeout(() => this.generateTone(523, 0.2, 'square', 0.4), 200); // C5
-        setTimeout(() => this.generateTone(587, 0.4, 'square', 0.4), 400); // D5
+      case 'ipod':
+        // Play external iPod sound
+        if (this.ipodSound && this.isEnabled) {
+          this.ipodSound.play();
+        }
         break;
       default:
         this.playClick();

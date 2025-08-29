@@ -7,30 +7,29 @@ export const useAudioManager = () => {
   const [audioStarted, setAudioStarted] = useState(false);
 
   useEffect(() => {
-    // Start ambient music after any user interaction
-    const startAmbient = () => {
-      console.log('🎵 Starting ambient music...');
-      soundManager.playAmbient();
+    // Initialize audio on first interaction (no ambient music)
+    const initAudio = () => {
+      console.log('🎵 Audio system initialized');
       setAudioStarted(true);
       
       // Remove all listeners after first interaction
-      window.removeEventListener('click', startAmbient);
-      window.removeEventListener('touchstart', startAmbient);
-      window.removeEventListener('keydown', startAmbient);
-      window.removeEventListener('scroll', startAmbient);
+      window.removeEventListener('click', initAudio);
+      window.removeEventListener('touchstart', initAudio);
+      window.removeEventListener('keydown', initAudio);
+      window.removeEventListener('scroll', initAudio);
     };
 
     // Listen for any user interaction
-    window.addEventListener('click', startAmbient, { once: true });
-    window.addEventListener('touchstart', startAmbient, { once: true });
-    window.addEventListener('keydown', startAmbient, { once: true });
-    window.addEventListener('scroll', startAmbient, { once: true });
+    window.addEventListener('click', initAudio, { once: true });
+    window.addEventListener('touchstart', initAudio, { once: true });
+    window.addEventListener('keydown', initAudio, { once: true });
+    window.addEventListener('scroll', initAudio, { once: true });
 
     return () => {
-      window.removeEventListener('click', startAmbient);
-      window.removeEventListener('touchstart', startAmbient);
-      window.removeEventListener('keydown', startAmbient);
-      window.removeEventListener('scroll', startAmbient);
+      window.removeEventListener('click', initAudio);
+      window.removeEventListener('touchstart', initAudio);
+      window.removeEventListener('keydown', initAudio);
+      window.removeEventListener('scroll', initAudio);
       soundManager.cleanup();
     };
   }, []);
@@ -52,9 +51,6 @@ export const useAudioManager = () => {
         break;
       case 'click':
         soundManager.playClick();
-        break;
-      case 'whoosh':
-        soundManager.playWhoosh();
         break;
       case 'object':
         if (objectId) {
