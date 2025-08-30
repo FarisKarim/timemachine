@@ -707,18 +707,18 @@ canvas:active {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #e2e8f0;
+  color: #00bfff;
   position: relative;
   transition: all 0.3s ease;
   display: inline-block;
   text-shadow: 
     /* Chrome highlights */
-    0 1px 0 #ffffff,
-    0 2px 0 #f1f5f9,
-    0 3px 0 #e2e8f0,
-    0 4px 0 #cbd5e1,
-    0 5px 0 #94a3b8,
-    0 6px 0 #64748b,
+    0 1px 0 #87ceeb,
+    0 2px 0 #4169e1,
+    0 3px 0 #1e90ff,
+    0 4px 0 #0080ff,
+    0 5px 0 #0066cc,
+    0 6px 0 #004d99,
     /* Shadow depth */
     0 7px 8px rgba(0, 0, 0, 0.3),
     0 10px 15px rgba(0, 0, 0, 0.2);
@@ -726,19 +726,19 @@ canvas:active {
 }
 
 .tm2000s-logo:hover {
-  color: #f8fafc;
+  color: #1e90ff;
   text-shadow: 
     /* Enhanced chrome highlights on hover */
-    0 1px 0 #ffffff,
-    0 2px 0 #f8fafc,
-    0 3px 0 #f1f5f9,
-    0 4px 0 #e2e8f0,
-    0 5px 0 #cbd5e1,
-    0 6px 0 #94a3b8,
-    0 7px 0 #64748b,
+    0 1px 0 #87ceeb,
+    0 2px 0 #4169e1,
+    0 3px 0 #1e90ff,
+    0 4px 0 #0080ff,
+    0 5px 0 #0066cc,
+    0 6px 0 #004d99,
+    0 7px 0 #003366,
     /* Enhanced shadows */
-    0 8px 12px rgba(0, 0, 0, 0.4),
-    0 12px 20px rgba(0, 0, 0, 0.3);
+    0 8px 12px rgba(0, 100, 200, 0.4),
+    0 12px 20px rgba(0, 100, 200, 0.3);
   transform: scale(1.05);
   filter: brightness(1.2) contrast(1.3);
 }
@@ -780,42 +780,42 @@ canvas:active {
 
 /* Theme-based logo variations - chrome with theme colors */
 .tm2000s-logo.gameboy-theme {
-  color: #bfdbfe;
+  color: #60a5fa;
   text-shadow: 
-    0 1px 0 #dbeafe,
-    0 2px 0 #bfdbfe,
-    0 3px 0 #93c5fd,
-    0 4px 0 #60a5fa,
-    0 5px 0 var(--gameboy-accent),
-    0 6px 0 #1d4ed8,
-    0 7px 8px rgba(59, 130, 246, 0.4),
-    0 10px 15px rgba(59, 130, 246, 0.2);
+    0 1px 0 #93c5fd,
+    0 2px 0 #60a5fa,
+    0 3px 0 #3b82f6,
+    0 4px 0 #2563eb,
+    0 5px 0 #1d4ed8,
+    0 6px 0 #1e40af,
+    0 7px 8px rgba(0, 0, 0, 0.3),
+    0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
 .tm2000s-logo.imac-theme {
-  color: #bae6fd;
+  color: #38bdf8;
   text-shadow: 
-    0 1px 0 #e0f2fe,
-    0 2px 0 #bae6fd,
-    0 3px 0 #7dd3fc,
-    0 4px 0 #38bdf8,
-    0 5px 0 var(--imac-bondi-blue),
-    0 6px 0 #0369a1,
-    0 7px 8px rgba(0, 149, 182, 0.4),
-    0 10px 15px rgba(0, 149, 182, 0.2);
+    0 1px 0 #7dd3fc,
+    0 2px 0 #38bdf8,
+    0 3px 0 #0ea5e9,
+    0 4px 0 #0284c7,
+    0 5px 0 #0369a1,
+    0 6px 0 #075985,
+    0 7px 8px rgba(0, 0, 0, 0.3),
+    0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
 .tm2000s-logo.tamagotchi-theme {
-  color: #fce7f3;
+  color: #f472b6;
   text-shadow: 
-    0 1px 0 #fdf2f8,
-    0 2px 0 #fce7f3,
-    0 3px 0 #fbcfe8,
-    0 4px 0 #f9a8d4,
-    0 5px 0 #f472b6,
-    0 6px 0 #ec4899,
-    0 7px 8px rgba(255, 20, 147, 0.4),
-    0 10px 15px rgba(255, 20, 147, 0.2);
+    0 1px 0 #f9a8d4,
+    0 2px 0 #f472b6,
+    0 3px 0 #ec4899,
+    0 4px 0 #db2777,
+    0 5px 0 #be185d,
+    0 6px 0 #9d174d,
+    0 7px 8px rgba(0, 0, 0, 0.3),
+    0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -1554,7 +1554,154 @@ canvas:active {
     background-size: 150% 150%;
     animation: chrome-flow 12s linear infinite;
   }
+}
+
+/* Y2K "Exploring Memories" Styling */
+.exploring-memories {
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: block;
+  will-change: transform;
+  color: #00ff41;
+  text-shadow:
+    /* Chunky pixel-perfect shadows */
+    1px 1px 0 #00cc33,
+    2px 2px 0 #009926,
+    3px 3px 0 #006619,
+    /* Neon glow */
+    0 0 5px #00ff41,
+    0 0 10px #00ff41,
+    0 0 15px #00ff41,
+    0 0 20px #00ff41;
+  filter: brightness(1.2) contrast(1.3);
+  animation: terminal-flicker 4s infinite;
+}
+
+/* Colorful rotating dots animation */
+.dot {
+  display: inline-block;
+  animation: color-cycle 1.5s infinite;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-shadow: none;
+  filter: none;
+  vertical-align: -0.1em;
+  margin-left: 0.2em;
+}
+
+.dot-1 {
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  animation-delay: 0.33s;
+}
+
+.dot-3 {
+  animation-delay: 0.66s;
+}
+
+@keyframes color-cycle {
+  0% { color: #00ff41; transform: scale(1); }
+  25% { color: #ff0041; transform: scale(1.2); }
+  50% { color: #4100ff; transform: scale(1); }
+  75% { color: #ffff00; transform: scale(1.2); }
+  100% { color: #00ff41; transform: scale(1); }
+}
+
+/* Terminal flicker animation */
+@keyframes terminal-flicker {
+  0%, 100% { opacity: 1; }
+  94%, 96% { opacity: 0.8; }
+  95% { opacity: 0.9; }
+}
+
+/* Object-specific theme variations */
+.exploring-memories.gameboy-theme {
+  color: #bfdbfe;
+  text-shadow:
+    /* Chunky blue shadows */
+    1px 1px 0 #93c5fd,
+    2px 2px 0 #60a5fa,
+    3px 3px 0 #3b82f6,
+    /* Blue neon glow */
+    0 0 5px #bfdbfe,
+    0 0 10px #93c5fd,
+    0 0 15px #60a5fa,
+    0 0 20px #3b82f6;
+}
+
+.exploring-memories.imac-theme {
+  color: #bae6fd;
+  text-shadow:
+    /* Chunky cyan shadows */
+    1px 1px 0 #7dd3fc,
+    2px 2px 0 #38bdf8,
+    3px 3px 0 #0ea5e9,
+    /* Cyan neon glow */
+    0 0 5px #bae6fd,
+    0 0 10px #7dd3fc,
+    0 0 15px #38bdf8,
+    0 0 20px #0ea5e9;
+}
+
+.exploring-memories.tamagotchi-theme {
+  color: #fce7f3;
+  text-shadow:
+    /* Chunky pink shadows */
+    1px 1px 0 #f9a8d4,
+    2px 2px 0 #f472b6,
+    3px 3px 0 #ec4899,
+    /* Pink neon glow */
+    0 0 5px #fce7f3,
+    0 0 10px #f9a8d4,
+    0 0 15px #f472b6,
+    0 0 20px #ec4899;
+}
+
+.exploring-memories.ps2-theme {
+  color: #c4b5fd;
+  text-shadow:
+    /* Chunky purple shadows */
+    1px 1px 0 #a78bfa,
+    2px 2px 0 #8b5cf6,
+    3px 3px 0 #7c3aed,
+    /* Purple neon glow */
+    0 0 5px #c4b5fd,
+    0 0 10px #a78bfa,
+    0 0 15px #8b5cf6,
+    0 0 20px #7c3aed;
+}
+
+.exploring-memories.ipod-theme {
+  color: #f1f5f9;
+  text-shadow:
+    /* Chunky white/silver shadows */
+    1px 1px 0 #e2e8f0,
+    2px 2px 0 #cbd5e1,
+    3px 3px 0 #94a3b8,
+    /* White/silver glow */
+    0 0 5px #f1f5f9,
+    0 0 10px #e2e8f0,
+    0 0 15px #cbd5e1,
+    0 0 20px #94a3b8;
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .exploring-memories {
+    animation: none;
+  }
   
+  .dot {
+    animation: none;
+    color: #00ff41;
+    transform: scale(1);
+  }
 }
 
 

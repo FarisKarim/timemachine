@@ -201,9 +201,26 @@ function App() {
         }`}>
           TM2000s
         </h1>
-        <p className={`opacity-80 ${isMobile ? 'text-sm' : 'text-lg'}`}>
+        <p className={`exploring-memories ${
+          selectedObject?.type === 'gameboy' && isZoomedIn 
+            ? 'gameboy-theme'
+            : selectedObject?.type === 'imacG3' && isZoomedIn 
+            ? 'imac-theme'
+            : selectedObject?.type === 'ps2' && isZoomedIn 
+            ? 'ps2-theme'
+            : selectedObject?.type === 'tamagotchi' && isZoomedIn 
+            ? 'tamagotchi-theme'
+            : selectedObject?.type === 'ipod' && isZoomedIn 
+            ? 'ipod-theme'
+            : ''
+        } ${isMobile ? 'text-sm' : 'text-base'}`}>
           {isZoomedIn 
-            ? 'Exploring memories...' 
+            ? <>
+                Exploring memories
+                <span className="dot dot-1">.</span>
+                <span className="dot dot-2">.</span>
+                <span className="dot dot-3">.</span>
+              </> 
             : ''
           }
         </p>
