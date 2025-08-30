@@ -388,6 +388,7 @@ function App() {
                 <GameBoyMemoryCapsule 
                   onGameSelect={handleGameSelect}
                   onAudioPlay={handleGameAudio}
+                  isZoomedIn={isZoomedIn}
                 />
               ) : selectedObject.type === 'tamagotchi' ? (
                 <TamagotchiMemoryCapsule 

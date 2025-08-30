@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Canvas } from '@react-three/fiber';
 import { gameboyData, getRandomFunFact, gameThemes } from '../../data/gameboyData';
 import ROM3DModel from '../3d/ROM3DModel';
@@ -219,7 +220,26 @@ const SelectedGameDetail = ({ game, onClose }) => {
   );
 };
 
-export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay }) => {
+const FloatingMemoryBlurb = ({ memory, position, selectedGame }) => {
+  return (
+    <div className={`fixed ${position} z-10 pointer-events-none`} style={{ width: '400px', height: '240px' }}>
+      <div className="ipod-chunky-border bg-gradient-to-br from-green-800/95 to-green-900/95 backdrop-blur-sm shadow-xl h-full">
+        {selectedGame?.id === 'pokemon-emerald' && (
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            className="w-full h-full object-cover"
+          >
+            <source src="/videos/emerald.mp4" type="video/mp4" />
+          </video>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay, isZoomedIn }) => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [currentMemory, setCurrentMemory] = useState(0);
   const [currentFact, setCurrentFact] = useState(getRandomFunFact());
@@ -289,6 +309,16 @@ export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay }) => {
 
       {/* Fun Fact */}
       <FunFactPanel fact={currentFact} />
+
+      {/* Floating Memory - Rendered via Portal */}
+      {isZoomedIn && createPortal(
+        <FloatingMemoryBlurb 
+          memory={gameboyData.memories[1]} 
+          position="top-80 right-8"
+          selectedGame={selectedGame}
+        />,
+        document.body
+      )}
     </div>
   );
 };
