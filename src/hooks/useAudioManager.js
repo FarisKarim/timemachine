@@ -5,6 +5,7 @@ export const useAudioManager = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.7);
   const [audioStarted, setAudioStarted] = useState(false);
+  const [isBgMuted, setIsBgMuted] = useState(false);
 
   useEffect(() => {
     // Initialize audio on first interaction (no ambient music)
@@ -73,6 +74,15 @@ export const useAudioManager = () => {
     soundManager.resumeBgMusic();
   }, []);
 
+  const toggleBgMusic = useCallback(() => {
+    if (isBgMuted) {
+      soundManager.resumeBgMusic();
+    } else {
+      soundManager.pauseBgMusic();
+    }
+    setIsBgMuted(!isBgMuted);
+  }, [isBgMuted]);
+
   return {
     isMuted,
     volume,
@@ -82,6 +92,8 @@ export const useAudioManager = () => {
     playSound,
     setBgVolume,
     pauseBgMusic,
-    resumeBgMusic
+    resumeBgMusic,
+    isBgMuted,
+    toggleBgMusic
   };
 };

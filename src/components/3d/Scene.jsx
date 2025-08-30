@@ -62,7 +62,7 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
         )}
         {/* Performance Monitors */}
         <Stats showPanel={0} className="stats-monitor" />
-        <Perf position="top-left" />
+        <Perf position="bottom-left" />
         
         <Suspense fallback={null}>
           <Camera 

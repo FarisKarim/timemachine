@@ -36,7 +36,7 @@ function App() {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [selectedIMacColor, setSelectedIMacColor] = useState('#0369a1'); // Default Bondi Blue
   const scrollProgressRef = useRef(0);
-  const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound, setBgVolume } = useAudioManager();
+  const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound, setBgVolume, isBgMuted, toggleBgMusic } = useAudioManager();
   const { isMobile, isTablet, isDesktop, orientation } = useMobileDetection();
 
   // Touch controls for mobile
@@ -254,6 +254,17 @@ function App() {
             <div className="eq-bar eq-bar-3"></div>
             <div className="eq-bar eq-bar-4"></div>
             <div className="eq-bar eq-bar-5"></div>
+          </div>
+        </button>
+
+        {/* Background Music Controls */}
+        <button 
+          className={`y2k-bg-music-button ${(isMuted || isBgMuted) ? 'muted' : 'unmuted'}`}
+          onClick={toggleBgMusic}
+          title={isBgMuted ? 'Play Background Music' : 'Mute Background Music'}
+        >
+          <div className={`music-note-container ${(isMuted || isBgMuted) ? 'muted' : 'animated'}`}>
+            <div className="music-note">♪</div>
           </div>
         </button>
       </div>

@@ -1420,19 +1420,116 @@ canvas:active {
   opacity: 0.5;
 }
 
-/* Red X overlay when muted */
-.equalizer-container.muted::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 24px;
-  background: #ef4444;
-  transform: rotate(45deg);
-  box-shadow: 0 0 4px rgba(239, 68, 68, 0.5);
-  top: 50%;
-  left: 50%;
-  transform-origin: center;
-  transform: translate(-50%, -50%) rotate(45deg);
+
+/* Background Music Button - Blue Chrome Style */
+.y2k-bg-music-button {
+  /* Inherit base structure from sound button */
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  
+  /* Y2K Electric Blue Chrome gradient */
+  background: linear-gradient(135deg, 
+    #e0f2fe 0%, 
+    #7dd3fc 15%, 
+    #38bdf8 30%,
+    #0ea5e9 45%, 
+    #0284c7 50%, 
+    #0ea5e9 55%,
+    #38bdf8 70%,
+    #7dd3fc 85%, 
+    #e0f2fe 100%);
+  background-size: 200% 200%;
+  
+  /* 3D glossy blue chrome effect */
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(14, 165, 233, 0.2),
+    0 2px 0 #0369a1,
+    0 3px 0 #075985,
+    0 6px 12px rgba(56, 189, 248, 0.3);
+  
+  /* Animation and transitions */
+  animation: gradient-shift 4s ease infinite;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Unmuted state - enhanced blue chrome glow */
+.y2k-bg-music-button.unmuted {
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(14, 165, 233, 0.15),
+    0 2px 0 #0369a1,
+    0 3px 0 #075985,
+    0 6px 12px rgba(56, 189, 248, 0.4),
+    0 0 16px rgba(0, 191, 255, 0.3);
+}
+
+/* Muted state - gray appearance */
+.y2k-bg-music-button.muted {
+  background: linear-gradient(135deg, #f1f5f9, #cbd5e1, #94a3b8, #cbd5e1, #f1f5f9);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    0 2px 0 #64748b,
+    0 3px 0 #475569,
+    0 6px 12px rgba(100, 116, 139, 0.2);
+}
+
+/* Hover effects */
+.y2k-bg-music-button:hover {
+  transform: translateY(-1px);
+}
+
+.y2k-bg-music-button:hover.unmuted {
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(14, 165, 233, 0.1),
+    0 3px 0 #0369a1,
+    0 4px 0 #075985,
+    0 8px 16px rgba(56, 189, 248, 0.5),
+    0 0 20px rgba(0, 191, 255, 0.4);
+}
+
+/* Music note container */
+.music-note-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 20px;
+  position: relative;
+}
+
+/* Music note styling */
+.music-note {
+  font-size: 24px;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Animated music note when unmuted */
+.music-note-container.animated .music-note {
+  animation: music-pulse 2s ease-in-out infinite alternate;
+}
+
+/* Muted music note */
+.music-note-container.muted .music-note {
+  color: #666666;
+  animation: none;
+}
+
+@keyframes music-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
 }
 
 /* Mobile responsiveness for sound button */
@@ -1440,6 +1537,15 @@ canvas:active {
   .y2k-sound-button {
     width: 42px;
     height: 42px;
+  }
+  
+  .y2k-bg-music-button {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .music-note {
+    font-size: 20px;
   }
   
   .equalizer-container {
@@ -1701,6 +1807,11 @@ canvas:active {
     animation: none;
     color: #00ff41;
     transform: scale(1);
+  }
+  
+  /* Disable music note animations for accessibility */
+  .music-note-container.animated .music-note {
+    animation: none !important;
   }
 }
 
