@@ -10,6 +10,7 @@ export const useAudioManager = () => {
     // Initialize audio on first interaction (no ambient music)
     const initAudio = () => {
       console.log('🎵 Audio system initialized');
+      soundManager.startBgMusic();
       setAudioStarted(true);
       
       // Remove all listeners after first interaction
@@ -60,12 +61,17 @@ export const useAudioManager = () => {
     }
   }, []); // No dependencies - soundManager is stable
 
+  const setBgVolume = useCallback((volume) => {
+    soundManager.setBgMusicVolume(volume);
+  }, []);
+
   return {
     isMuted,
     volume,
     audioStarted,
     toggleMute,
     changeVolume,
-    playSound
+    playSound,
+    setBgVolume
   };
 };

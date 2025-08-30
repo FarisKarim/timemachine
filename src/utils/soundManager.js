@@ -15,63 +15,71 @@ class SoundManager {
     // Load external Game Boy Advance sound
     this.gameboySound = new Howl({
       src: ['/sounds/gba.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external iMac G3 sound
     this.imacSound = new Howl({
       src: ['/sounds/imacg3.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external PS2 sound
     this.ps2Sound = new Howl({
       src: ['/sounds/ps2.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external Tamagotchi sound
     this.tamagotchiSound = new Howl({
       src: ['/sounds/tamagotchi.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external iPod sound
     this.ipodSound = new Howl({
       src: ['/sounds/ipod.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external Pokémon Emerald sound
     this.emeraldSound = new Howl({
       src: ['/sounds/emeraldstart.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external Pokémon Fire Red sound
     this.fireRedSound = new Howl({
       src: ['/sounds/firered.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external Mario Kart sound
     this.marioKartSound = new Howl({
       src: ['/sounds/mariokart.mp3'],
-      volume: 0.5,
+      volume: 0.6,
       preload: true
     });
     
     // Load external Link's Awakening sound
     this.linkSound = new Howl({
       src: ['/sounds/link.mp3'],
-      volume: 0.5,
+      volume: 0.6,
+      preload: true
+    });
+    
+    // Load background music
+    this.bgMusic = new Howl({
+      src: ['/sounds/bgsong.mp3'],
+      volume: 0.3,
+      loop: true,
       preload: true
     });
   }
@@ -119,6 +127,18 @@ class SoundManager {
     } catch (error) {
       console.warn('❌ Audio initialization failed:', error);
       this.isEnabled = false;
+    }
+  }
+
+  startBgMusic() {
+    if (this.bgMusic && this.isEnabled) {
+      this.bgMusic.play();
+    }
+  }
+
+  setBgMusicVolume(volume) {
+    if (this.bgMusic) {
+      this.bgMusic.volume(volume);
     }
   }
 

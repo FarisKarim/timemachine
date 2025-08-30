@@ -36,7 +36,7 @@ function App() {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [selectedIMacColor, setSelectedIMacColor] = useState('#0369a1'); // Default Bondi Blue
   const scrollProgressRef = useRef(0);
-  const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound } = useAudioManager();
+  const { isMuted, volume, audioStarted, toggleMute, changeVolume, playSound, setBgVolume } = useAudioManager();
   const { isMobile, isTablet, isDesktop, orientation } = useMobileDetection();
 
   // Touch controls for mobile
@@ -99,6 +99,12 @@ function App() {
     setTimeout(() => playSound('object', nextObject.id), 300);
   }, [selectedObject, isZoomedIn, playSound]);
 
+  // Dynamic background music volume based on zoom state
+  useEffect(() => {
+    if (audioStarted) {
+      setBgVolume(isZoomedIn ? 0.15 : 0.3);
+    }
+  }, [isZoomedIn, audioStarted, setBgVolume]);
 
   useEffect(() => {
     const handleWheel = (e) => {
