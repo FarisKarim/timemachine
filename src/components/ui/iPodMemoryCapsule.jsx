@@ -287,7 +287,7 @@ export const IPodMemoryCapsule = ({ onTrackSelect, isZoomedIn }) => {
   const floatingPositions = [
     'top-24 right-8',
     'top-80 right-8',
-    'top-144 right-8',
+    'top-124 right-8',
     'bottom-12 right-8'
   ];
 

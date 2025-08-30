@@ -1,5 +1,32 @@
 /* Global styles for NostalgiaX */
 
+/* Import PS2-style font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* PS2 Logo Font Class */
+.ps2-logo-font {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+/* Details triangle animation */
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary .triangle {
+  transition: transform 0.2s ease;
+}
+
+details[open] summary .triangle {
+  transform: rotate(90deg);
+}
+
 /* GameBoy Color Palette */
 :root {
   --gameboy-primary: #e2e8f0;     /* Silver SP shell */

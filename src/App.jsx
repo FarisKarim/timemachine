@@ -231,16 +231,18 @@ function App() {
       <div className={`fixed top-4 md:top-8 right-4 md:right-8 z-20 flex gap-1 md:gap-2 ${
         isMobile ? 'flex-col' : 'flex-row'
       }`}>
-        <button 
-          className="y2k-start-button"
-          onClick={() => {
-            const gameboy = nostalgicObjects[0]; // First object is Game Boy
-            handleObjectClick(gameboy);
-          }}
-        >
-          <span className="y2k-play-icon"></span>
-          Start Journey
-        </button>
+        {!isZoomedIn && (
+          <button 
+            className="y2k-start-button"
+            onClick={() => {
+              const gameboy = nostalgicObjects[0]; // First object is Game Boy
+              handleObjectClick(gameboy);
+            }}
+          >
+            <span className="y2k-play-icon"></span>
+            Start Journey
+          </button>
+        )}
         
         {/* Audio Controls */}
         <button 

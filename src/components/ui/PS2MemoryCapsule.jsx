@@ -98,9 +98,6 @@ const PS2MemoryVault = ({ memories, currentMemory, onMemoryChange }) => {
         <h4 className="text-xl font-bold text-blue-400 font-mono uppercase tracking-wider">
           Memory Vault
         </h4>
-        <div className="text-xs text-blue-400/60 px-3 py-1 bg-blue-950/30 rounded-full">
-          {memories.length} memories archived
-        </div>
       </div>
       
       {/* Featured Memory */}
@@ -199,15 +196,15 @@ const PS2SystemInfo = ({ systemInfo }) => {
       </div>
       
       <div className="bg-gradient-to-br from-blue-950/30 via-blue-900/20 to-black/40 p-4 rounded-xl border border-blue-500/30">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {Object.entries(systemInfo).map(([key, value]) => (
-            <div key={key} className="flex justify-between items-center p-2 bg-black/20 rounded">
-              <span className="text-xs text-blue-400/70 font-mono uppercase">
+            <div key={key} className="p-4 bg-black/20 rounded space-y-1">
+              <div className="text-xs text-blue-400/70 font-mono uppercase">
                 {key.replace(/([A-Z])/g, ' $1').trim()}
-              </span>
-              <span className="text-xs text-white font-mono">
+              </div>
+              <div className="text-sm text-white font-mono font-semibold">
                 {value}
-              </span>
+              </div>
             </div>
           ))}
         </div>
@@ -240,15 +237,11 @@ export const PS2MemoryCapsule = ({ onCardSelect }) => {
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-4">
           <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-          <h3 className="text-3xl font-bold text-blue-400 font-mono uppercase tracking-wider">
+          <h3 className="text-3xl font-bold text-blue-400 ps2-logo-font">
             PlayStation 2
           </h3>
           <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
         </div>
-        
-        <p className="text-blue-300/70 text-sm font-mono">
-          MEMORY SYSTEM INITIALIZED
-        </p>
       </div>
       
       {/* Memory Vault - Primary Section */}
@@ -304,7 +297,7 @@ export const PS2MemoryCapsule = ({ onCardSelect }) => {
       {/* System Info - Collapsible */}
       <details className="bg-blue-950/10 p-4 rounded-xl border border-blue-600/20 cursor-pointer">
         <summary className="text-blue-400 font-mono text-sm hover:text-blue-300 transition-colors">
-          ▼ SYSTEM CONFIGURATION
+          <span className="triangle inline-block">▶</span> SYSTEM CONFIGURATION
         </summary>
         <div className="mt-4">
           <PS2SystemInfo systemInfo={ps2Data.systemInfo} />

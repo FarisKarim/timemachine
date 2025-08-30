@@ -320,9 +320,8 @@ export const ps2Data = {
     memory: '32MB main RAM + 4MB video RAM',
     storage: 'Memory Card (8MB)',
     media: 'DVD-ROM, CD-ROM, PlayStation discs',
-    unitsSold: '155 million worldwide',
-    generation: 'Sixth generation',
-    codename: 'Project Neptune'
+    unitsSold: '160 million worldwide',
+    generation: 'Sixth generation'
   },
 
   // Boot sequence data

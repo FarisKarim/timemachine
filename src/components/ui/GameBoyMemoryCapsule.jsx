@@ -235,6 +235,7 @@ const FloatingMemoryBlurb = ({ memory, position, selectedGame }) => {
             <source src={`/videos/${selectedGame.id === 'pokemon-emerald' ? 'emerald' : 'firered'}.mp4`} type="video/mp4" />
           </video>
         )}
+        {/* Empty TV for games without video - shows green background */}
       </div>
     </div>
   );
@@ -276,11 +277,6 @@ export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay, isZoomedIn }) 
       {/* Header */}
       <div className="text-center mb-6">
         <h3 className="text-2xl gameboy-header mb-2">Game Boy Advance SP Memory Capsule</h3>
-        <div className="flex items-center justify-center gap-2 gameboy-body text-sm">
-          <span className="gameboy-power-led"></span>
-          <span>BOOTING NOSTALGIA_OS v2.003</span>
-          <span className="gameboy-power-led"></span>
-        </div>
       </div>
 
       {/* Selected Game Detail */}
@@ -311,8 +307,8 @@ export const GameBoyMemoryCapsule = ({ onGameSelect, onAudioPlay, isZoomedIn }) 
       {/* Fun Fact */}
       <FunFactPanel fact={currentFact} />
 
-      {/* Floating Memory - Rendered via Portal */}
-      {isZoomedIn && createPortal(
+      {/* Floating Memory TV - Render for all games with videos, show empty for others */}
+      {isZoomedIn && selectedGame && (selectedGame.id === 'pokemon-emerald' || selectedGame.id === 'pokemon-fire-red' || selectedGame.id === 'mario-kart' || selectedGame.id === 'zelda-links-awakening') && createPortal(
         <FloatingMemoryBlurb 
           memory={gameboyData.memories[1]} 
           position="top-96 right-8"
