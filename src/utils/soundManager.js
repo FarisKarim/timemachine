@@ -8,6 +8,7 @@ class SoundManager {
     this.audioContext = null;
     this.volume = 0.7;
     this.initialized = false;
+    this.currentObjectSound = null;
     
     // Set global volume
     Howler.volume(this.volume);
@@ -142,6 +143,24 @@ class SoundManager {
     }
   }
 
+  stopCurrentObjectSound() {
+    if (this.currentObjectSound && this.currentObjectSound.playing()) {
+      this.currentObjectSound.stop();
+    }
+  }
+
+  pauseBgMusic() {
+    if (this.bgMusic && this.bgMusic.playing()) {
+      this.bgMusic.pause();
+    }
+  }
+
+  resumeBgMusic() {
+    if (this.bgMusic && this.isEnabled && !this.bgMusic.playing()) {
+      this.bgMusic.play();
+    }
+  }
+
 
   playHover() {
     if (!this.isEnabled) return;
@@ -167,24 +186,35 @@ class SoundManager {
     if (!this.isEnabled) return;
     this.initializeSounds();
     
+    // Pause background music before playing game sound
+    this.pauseBgMusic();
+    
     // Only play external sound files
     if (gameId === 'pokemon-emerald' && this.emeraldSound) {
+      this.currentObjectSound = this.emeraldSound;
       this.emeraldSound.play();
+      this.emeraldSound.once('end', () => this.resumeBgMusic());
       return;
     }
     
     if (gameId === 'pokemon-fire-red' && this.fireRedSound) {
+      this.currentObjectSound = this.fireRedSound;
       this.fireRedSound.play();
+      this.fireRedSound.once('end', () => this.resumeBgMusic());
       return;
     }
     
     if (gameId === 'mario-kart' && this.marioKartSound) {
+      this.currentObjectSound = this.marioKartSound;
       this.marioKartSound.play();
+      this.marioKartSound.once('end', () => this.resumeBgMusic());
       return;
     }
     
     if (gameId === 'zelda-links-awakening' && this.linkSound) {
+      this.currentObjectSound = this.linkSound;
       this.linkSound.play();
+      this.linkSound.once('end', () => this.resumeBgMusic());
       return;
     }
     
@@ -194,6 +224,9 @@ class SoundManager {
   playObjectSound(objectId) {
     if (!this.isEnabled) return;
     this.initializeSounds();
+    
+    // Stop any currently playing object sound
+    this.stopCurrentObjectSound();
     
     // Check if it's a Game Boy game-specific sound
     if (gameboyData.audioCues[objectId]) {
@@ -206,30 +239,35 @@ class SoundManager {
       case 'gameboy':
         // Play external Game Boy Advance sound
         if (this.gameboySound && this.isEnabled) {
+          this.currentObjectSound = this.gameboySound;
           this.gameboySound.play();
         }
         break;
       case 'ps2':
         // Play external PS2 sound
         if (this.ps2Sound && this.isEnabled) {
+          this.currentObjectSound = this.ps2Sound;
           this.ps2Sound.play();
         }
         break;
       case 'imac-g3':
         // Play external iMac G3 sound
         if (this.imacSound && this.isEnabled) {
+          this.currentObjectSound = this.imacSound;
           this.imacSound.play();
         }
         break;
       case 'tamagotchi':
         // Play external Tamagotchi sound
         if (this.tamagotchiSound && this.isEnabled) {
+          this.currentObjectSound = this.tamagotchiSound;
           this.tamagotchiSound.play();
         }
         break;
       case 'ipod':
         // Play external iPod sound
         if (this.ipodSound && this.isEnabled) {
+          this.currentObjectSound = this.ipodSound;
           this.ipodSound.play();
         }
         break;

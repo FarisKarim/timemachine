@@ -65,6 +65,14 @@ export const useAudioManager = () => {
     soundManager.setBgMusicVolume(volume);
   }, []);
 
+  const pauseBgMusic = useCallback(() => {
+    soundManager.pauseBgMusic();
+  }, []);
+
+  const resumeBgMusic = useCallback(() => {
+    soundManager.resumeBgMusic();
+  }, []);
+
   return {
     isMuted,
     volume,
@@ -72,6 +80,8 @@ export const useAudioManager = () => {
     toggleMute,
     changeVolume,
     playSound,
-    setBgVolume
+    setBgVolume,
+    pauseBgMusic,
+    resumeBgMusic
   };
 };
