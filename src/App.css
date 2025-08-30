@@ -848,6 +848,44 @@ canvas:active {
   
 }
 
+/* CRT TV Scanline Effects */
+.crt-scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-scanlines::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 200%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.3) 2px,
+    rgba(0, 0, 0, 0.3) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  animation: scanline-roll 1.5s linear infinite;
+}
+
+@keyframes scanline-roll {
+  0% { transform: translateY(0); }
+  99.99% { transform: translateY(50%); }
+  100% { transform: translateY(0); }
+}
+
+/* Disable animations on mobile for performance */
+@media (max-width: 768px) {
+  .crt-scanlines::before {
+    animation: none;
+  }
+}
+
 /* Y2K Start Journey Button */
 .y2k-start-button {
   /* Gradient background - electric blue to teal with metallic feel */
