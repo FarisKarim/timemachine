@@ -327,7 +327,15 @@ function App() {
             ? 'white'
             : 'white',
           animation: 'none',
-          background: selectedObject?.type === 'tamagotchi' ? '#0ea5e9' : 'transparent',
+          background: selectedObject?.type === 'gameboy'
+            ? 'linear-gradient(135deg, rgba(226, 232, 240, 0.95), rgba(148, 163, 184, 0.9))'
+            : selectedObject?.type === 'tamagotchi' 
+            ? '#0ea5e9'
+            : selectedObject?.type === 'ipod'
+            ? 'linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 50%, rgba(226, 232, 240, 0.95) 100%)'
+            : selectedObject?.type === 'imacG3'
+            ? 'linear-gradient(135deg, rgba(0, 149, 182, 0.95) 0%, rgba(0, 201, 255, 0.9) 50%, rgba(0, 149, 182, 0.95) 100%)'
+            : 'rgba(0, 0, 0, 0.4)',
           boxShadow: selectedObject?.type === 'gameboy'
             ? '0 8px 32px rgba(59, 130, 246, 0.1)'
             : selectedObject?.type === 'ipod' 

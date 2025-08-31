@@ -63,36 +63,8 @@ export const CareInterface = ({ onCareAction, petState }) => {
         <span className="text-2xl">💕</span> Pet Care
       </h4>
 
-      {/* Pet Status Display */}
+      {/* Pet Animation Display */}
       <div className="bg-gradient-to-br from-pink-50/10 to-purple-50/5 p-4 rounded-xl border border-pink-300/20">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <StatusBar 
-            label="Hunger" 
-            value={petState.displayHunger} 
-            color="#10B981"
-            icon="🍎"
-          />
-          <StatusBar 
-            label="Happy" 
-            value={petState.displayHappiness} 
-            color="#3B82F6"
-            icon="😊"
-          />
-          <StatusBar 
-            label="Health" 
-            value={petState.displayHealth} 
-            color="#8B5CF6"
-            icon="💚"
-          />
-          <StatusBar 
-            label="Energy" 
-            value={petState.displayEnergy} 
-            color="#F59E0B"
-            icon="⚡"
-          />
-        </div>
-
-        {/* Pet Animation Display */}
         <div className="text-center py-4">
           <div className="text-6xl mb-2">
             <PetSprite animation={petState.currentAnimation} />
@@ -182,28 +154,6 @@ export const CareInterface = ({ onCareAction, petState }) => {
   );
 };
 
-// Individual status bar component
-const StatusBar = ({ label, value, color, icon }) => {
-  return (
-    <div className="space-y-1">
-      <div className="flex items-center gap-2">
-        <span className="text-sm">{icon}</span>
-        <span className="text-sm font-medium text-white tamagotchi-font-body">{label}</span>
-        <span className="text-xs text-white/60 ml-auto">{Math.round(value)}%</span>
-      </div>
-      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-        <div 
-          className="h-full transition-all duration-500 ease-out rounded-full"
-          style={{
-            width: `${Math.max(0, Math.min(100, value))}%`,
-            backgroundColor: color,
-            boxShadow: value > 70 ? `0 0 8px ${color}40` : 'none'
-          }}
-        />
-      </div>
-    </div>
-  );
-};
 
 // Pet sprite component with animations
 const PetSprite = ({ animation }) => {

@@ -13,6 +13,7 @@ export const usePetState = () => {
     lastPlayed: Date.now(),
     lastCleaned: Date.now(),
     lastSleep: Date.now(),
+    lastDecay: Date.now(),
     
     // Evolution tracking
     evolutionProgress: 0,
@@ -85,12 +86,18 @@ export const usePetState = () => {
     
     if (secondsPassed >= 45) { // Decay every 45 seconds
       const decay = {
-        hunger: Math.max(0, state.hunger - 5),
-        happiness: Math.max(0, state.happiness - 3),
-        energy: Math.max(0, state.energy - 4),
+        hunger: -5,
+        happiness: -3,
+        energy: -4,
+        starvationCycle: (state.starvationCycle || 0) + 1,
         lastDecay: now,
         ...sleepUpdate
       };
+      
+      // Starvation: every 3rd cycle (30s) when hunger ≤ 0
+      if (state.hunger <= 0 && decay.starvationCycle % 3 === 0) {
+        decay.health = -5;
+      }
       
       updatePetStats(decay);
       return true; // Signal UI update needed
@@ -110,8 +117,8 @@ export const usePetState = () => {
       if (now - state.feedCooldown < 30000 || state.isSleeping) return false; // 30s cooldown or sleeping
       
       updatePetStats({
-        hunger: Math.min(100, state.hunger + 25),
-        happiness: Math.min(100, state.happiness + 5),
+        hunger: 25,
+        happiness: 5,
         currentAnimation: 'eating',
         animationStartTime: now,
         feedCooldown: now,
@@ -127,9 +134,9 @@ export const usePetState = () => {
       if (now - state.playCooldown < 45000 || state.energy < 20 || state.isSleeping) return false;
       
       updatePetStats({
-        happiness: Math.min(100, state.happiness + 20),
-        energy: Math.max(0, state.energy - 15),
-        hunger: Math.max(0, state.hunger - 5),
+        happiness: 20,
+        energy: -15,
+        hunger: -5,
         currentAnimation: 'playing',
         animationStartTime: now,
         playCooldown: now,
@@ -145,8 +152,8 @@ export const usePetState = () => {
       if (now - state.cleanCooldown < 60000 || state.isSleeping) return false; // 1min cooldown or sleeping
       
       updatePetStats({
-        health: Math.min(100, state.health + 15),
-        happiness: Math.min(100, state.happiness + 10),
+        health: 15,
+        happiness: 10,
         currentAnimation: 'cleaning',
         animationStartTime: now,
         cleanCooldown: now,
@@ -162,8 +169,8 @@ export const usePetState = () => {
       if (state.isSleeping) return false; // Already sleeping
       
       updatePetStats({
-        energy: Math.min(100, state.energy + 40),
-        happiness: Math.min(100, state.happiness + 5),
+        energy: 40,
+        happiness: 5,
         isSleeping: true,
         sleepEndTime: now + 30000, // 30 seconds
         currentAnimation: 'sleeping',

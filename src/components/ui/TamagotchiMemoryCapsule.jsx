@@ -5,6 +5,7 @@ import { useGameLoop } from '../../hooks/useGameLoop';
 import { usePetAudio } from '../../hooks/usePetAudio';
 import MiniGameGrid from './tamagotchi/MiniGameGrid';
 import CareInterface from './tamagotchi/CareInterface';
+import StatusDisplay from './tamagotchi/StatusDisplay';
 
 const CharacterGuide = ({ characters, selectedCharacter, onCharacterSelect }) => {
   return (
@@ -384,6 +385,9 @@ export const TamagotchiMemoryCapsule = ({ onCharacterSelect, isZoomedIn }) => {
         </h3>
       </div>
 
+      {/* NEW: Live Pet Status Display */}
+      <StatusDisplay petState={petStateHook.uiState} />
+
       {/* NEW: Live Pet Care System */}
       <CareInterface 
         onCareAction={handleCareAction} 
@@ -422,7 +426,7 @@ export const TamagotchiMemoryCapsule = ({ onCharacterSelect, isZoomedIn }) => {
               }}
             >
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-4xl animate-bounce">{selectedCharacter.icon}</span>
+                <span className="text-4xl">{selectedCharacter.icon}</span>
                 <div>
                   <h5 className="font-bold text-lg text-white">{selectedCharacter.name}</h5>
                   <p className="text-sm text-white/70">{selectedCharacter.type}</p>
