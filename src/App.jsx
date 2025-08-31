@@ -326,13 +326,14 @@ function App() {
             : selectedObject?.type === 'imacG3'
             ? 'white'
             : 'white',
-          animation: selectedObject?.type === 'tamagotchi' ? 'rainbow-pulse 3s infinite' : 'none',
+          animation: 'none',
+          background: selectedObject?.type === 'tamagotchi' ? '#0ea5e9' : 'transparent',
           boxShadow: selectedObject?.type === 'gameboy'
             ? '0 8px 32px rgba(59, 130, 246, 0.1)'
             : selectedObject?.type === 'ipod' 
             ? 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05)'
             : selectedObject?.type === 'tamagotchi'
-            ? '0 0 20px #FF1493, 0 0 40px #FF69B4, 0 0 60px #00BFFF'
+            ? '0 8px 32px rgba(14, 165, 233, 0.4)'
             : selectedObject?.type === 'imacG3'
             ? 'inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 10px 30px rgba(0, 149, 182, 0.2), 0 4px 12px rgba(0, 201, 255, 0.1)'
             : 'none'
@@ -352,7 +353,7 @@ function App() {
               </div>
             )}
             
-            <div className={`flex-1 overflow-hidden flex flex-col ${isMobile ? 'px-4 pb-4' : 'px-8 pb-8'} ${selectedObject.type === 'ipod' ? '' : 'pt-8'}`}>
+            <div className={`flex-1 overflow-hidden flex flex-col ${isMobile ? 'px-2 pb-4' : 'px-4 pb-8'} ${selectedObject.type === 'ipod' ? '' : 'pt-8'}`}>
               {/* 2000s Sparkle Overlay for Tamagotchi */}
               {selectedObject.type === 'tamagotchi' && (
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -378,7 +379,6 @@ function App() {
               <div className="flex items-center gap-4">
                 {selectedObject.type === 'tamagotchi' && (
                   <div className="flex gap-1">
-                    <span className="text-2xl animate-y2k-bounce" style={{ animationDelay: '0.6s' }}>⭐</span>
                   </div>
                 )}
               </div>

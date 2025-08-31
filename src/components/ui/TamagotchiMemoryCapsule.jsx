@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import { tamagotchiData, getRandomFunFact } from '../../data/tamagotchiData';
+import { usePetState } from '../../hooks/usePetState';
+import { useGameLoop } from '../../hooks/useGameLoop';
+import { usePetAudio } from '../../hooks/usePetAudio';
+import MiniGameGrid from './tamagotchi/MiniGameGrid';
+import CareInterface from './tamagotchi/CareInterface';
 
 const CharacterGuide = ({ characters, selectedCharacter, onCharacterSelect }) => {
   return (
@@ -293,10 +298,17 @@ const FunFactDisplay = ({ fact }) => {
   );
 };
 
-export const TamagotchiMemoryCapsule = ({ onCharacterSelect }) => {
+export const TamagotchiMemoryCapsule = ({ onCharacterSelect, isZoomedIn }) => {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [currentMemory, setCurrentMemory] = useState(0);
   const [currentFact, setCurrentFact] = useState(getRandomFunFact());
+
+  // Initialize pet simulation system
+  const petStateHook = usePetState();
+  const { playPetSound, gameAudio } = usePetAudio();
+  
+  // Start game loop when component is active
+  useGameLoop(petStateHook, isZoomedIn);
 
   // Auto-rotate memories
   useEffect(() => {
@@ -329,18 +341,62 @@ export const TamagotchiMemoryCapsule = ({ onCharacterSelect }) => {
   const handleCharacterSelect = (character) => {
     setSelectedCharacter(character);
     onCharacterSelect?.(character);
+    playPetSound('happy');
+  };
+
+  const handleCareAction = (action) => {
+    const success = petStateHook.careActions[action]();
+    if (success) {
+      const soundMap = {
+        feed: 'eating',
+        play: 'playing', 
+        clean: 'happy',
+        sleep: 'happy'
+      };
+      playPetSound(soundMap[action] || 'happy');
+    }
+  };
+
+  const handleGameComplete = (gameId, score, rewards) => {
+    // Apply game rewards to pet
+    petStateHook.updatePetStats(rewards);
+    
+    // Play success sound
+    if (score > 50) {
+      gameAudio.success();
+    } else {
+      gameAudio.gameOver();
+    }
+    
+    // Save high score
+    localStorage.setItem(`tamagotchi_${gameId}_highscore`, Math.max(
+      score, 
+      parseInt(localStorage.getItem(`tamagotchi_${gameId}_highscore`) || '0')
+    ));
   };
 
   return (
     <div className="space-y-6">
       {/* Header with softer gradient */}
       <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-gradient">
+        <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent tamagotchi-font-header" style={{ textShadow: 'none' }}>
           ✨ Tamagotchi Memory Capsule ✨
         </h3>
       </div>
 
-      {/* Memory Log - Prominently placed at top */}
+      {/* NEW: Live Pet Care System */}
+      <CareInterface 
+        onCareAction={handleCareAction} 
+        petState={petStateHook.uiState} 
+      />
+
+      {/* NEW: Interactive Mini-Games */}
+      <MiniGameGrid 
+        onGameComplete={handleGameComplete}
+        petState={petStateHook.uiState}
+      />
+
+      {/* Memory Log - Now secondary */}
       <MemoryLog 
         memories={tamagotchiData.memories}
         currentMemory={currentMemory}
