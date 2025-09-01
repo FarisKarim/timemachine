@@ -442,27 +442,6 @@ export const TamagotchiMemoryCapsule = ({ onCharacterSelect, isZoomedIn }) => {
         )}
       </div>
 
-      {/* Secondary Information - Collapsible */}
-      <details className="bg-white/5 p-5 rounded-2xl backdrop-blur-sm cursor-pointer group">
-        <summary className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-white hover:text-pink-300 transition-colors">
-          <span className="text-lg font-semibold flex items-center gap-2">
-            <span>📊</span> Care & Activities
-          </span>
-          <span className="text-xs text-white/40 group-hover:text-pink-300/60 transition-colors">
-            ▼ Click to expand
-          </span>
-        </summary>
-        <div className="mt-4 space-y-6">
-          {/* Care Stats */}
-          <CareStats stats={tamagotchiData.careStats} />
-
-          {/* Mini Games */}
-          <MiniGames games={tamagotchiData.miniGames} />
-
-          {/* Evolution Timeline */}
-          <EvolutionTimeline stages={tamagotchiData.evolutionStages} />
-        </div>
-      </details>
 
       {/* Fun Fact */}
       <FunFactDisplay fact={currentFact} />

@@ -2,52 +2,28 @@ export const ps2Data = {
   // Authentic PS2 gaming memories from the Y2K era
   memories: [
     {
-      title: "The Blue Screen of Power",
-      content: "That deep bass hum as floating particles assembled into towers. The PS2 boot screen meant business - no cartoon mascots, just pure digital authority.",
-      timestamp: "2000-2005",
+      title: "The Growing Towers",
+      content: "Those mysterious floating towers on the boot screen weren't random - they grew based on your save data. The more games you played, the more towers appeared.",
+      timestamp: "2000-2005", 
       category: "boot",
-      emotion: "anticipation",
-      icon: "🌌"
+      emotion: "discovery",
+      icon: "🏗️"
     },
     {
-      title: "Save File Corruption Trauma",
-      content: "87 hours into Final Fantasy X. Memory card corrupted. Stared at the screen for 10 minutes in disbelief before rage-quitting for a week.",
-      timestamp: "2003",
-      category: "saves",
-      emotion: "devastation",
-      icon: "💾"
-    },
-    {
-      title: "Memory Card Shuffle",
-      content: "Juggling 8MB cards like a deck of cards. 'Which one has my Vice City save?' became a daily mystery.",
+      title: "The 8MB Decision",
+      content: "Delete your Jak and Daxter save to make room for Ratchet: Deadlocked?",
       timestamp: "2002-2004",
       category: "saves",
-      emotion: "anxiety",
-      icon: "🔄"
+      emotion: "sacrifice",
+      icon: "⚖️"
     },
     {
       title: "Disc Read Error Hell",
-      content: "The dreaded red screen of death. Eject. Wipe with shirt. Blow on it. Pray to the gaming gods. Repeat until it works.",
+      content: "The red screen of death. Eject. Wipe with shirt. Blow on it. Repeat.",
       timestamp: "2001-2008",
       category: "hardware",
       emotion: "frustration",
       icon: "💿"
-    },
-    {
-      title: "The Network Adapter",
-      content: "Bought it just for Final Fantasy XI. Felt like a pioneer connecting to the internet through a game console.",
-      timestamp: "2004",
-      category: "online",
-      emotion: "wonder",
-      icon: "🌐"
-    },
-    {
-      title: "Summer of San Andreas",
-      content: "All the hot coffee we wanted. Cheat codes written on scraps of paper. 'Hesoyam' burned into muscle memory forever.",
-      timestamp: "2004",
-      category: "gaming",
-      emotion: "freedom",
-      icon: "🌆"
     },
     {
       title: "DVD Player Revelation",
@@ -56,14 +32,6 @@ export const ps2Data = {
       category: "movies",
       emotion: "amazement",
       icon: "🎬"
-    },
-    {
-      title: "Controller Port Battles",
-      content: "Four controllers meant four-player Tekken tournaments. 'I called player 1!' Arguments that lasted longer than the matches.",
-      timestamp: "2001-2005",
-      category: "multiplayer",
-      emotion: "competition",
-      icon: "🎮"
     },
     {
       title: "The Backwards Compatibility Miracle",
@@ -75,27 +43,11 @@ export const ps2Data = {
     },
     {
       title: "Memory Card Full Panic",
-      content: "Delete old saves to make room for new ones. Like choosing which child to abandon. That FIFA 2002 save had sentimental value!",
+      content: "Delete old saves to make room for new ones.",
       timestamp: "2002-2003",
       category: "saves",
       emotion: "decision",
       icon: "🗑️"
-    },
-    {
-      title: "The Fat PS2 Warmth",
-      content: "Used it as a space heater in winter. The console got so hot you could cook eggs on it during marathon gaming sessions.",
-      timestamp: "2000-2004",
-      category: "hardware",
-      emotion: "comfort",
-      icon: "🔥"
-    },
-    {
-      title: "Loading Screen Meditation",
-      content: "GTA loading screens were so long, you'd make a sandwich and come back. The anticipation made the game feel more epic.",
-      timestamp: "2001-2004",
-      category: "gaming",
-      emotion: "patience",
-      icon: "⏳"
     },
     {
       title: "The Blue Bottom Mystery",
@@ -120,14 +72,6 @@ export const ps2Data = {
       category: "console-wars",
       emotion: "loyalty",
       icon: "⚔️"
-    },
-    {
-      title: "Midnight Launch Madness",
-      content: "Waiting outside GameStop at 11:59 PM for Vice City. The pre-order culture was born with the PS2 generation.",
-      timestamp: "2002",
-      category: "culture",
-      emotion: "excitement",
-      icon: "🕛"
     },
     {
       title: "The EyeToy Experiment",
@@ -242,70 +186,6 @@ export const ps2Data = {
           playTime: '67h 34m',
           date: '2001.10.30',
           description: 'All gaps found'
-        }
-      ]
-    },
-    {
-      id: 'card-2',
-      label: 'MEMORY CARD (8MB)',
-      capacity: '8MB',
-      used: '5.8MB',
-      saves: [
-        {
-          game: 'Grand Theft Auto: San Andreas',
-          icon: '🌆',
-          progress: '92%',
-          playTime: '203h 17m',
-          date: '2004.10.26',
-          description: 'CJ owns Los Santos'
-        },
-        {
-          game: 'Kingdom Hearts',
-          icon: '👑',
-          progress: '56%',
-          playTime: '45h 23m',
-          date: '2002.03.28',
-          description: 'Sora at Hollow Bastion'
-        },
-        {
-          game: 'Tekken 3',
-          icon: '👊',
-          progress: '89%',
-          playTime: '124h 56m',
-          date: '2003.05.15',
-          description: 'All characters unlocked'
-        }
-      ]
-    },
-    {
-      id: 'card-3',
-      label: 'MEMORY CARD (8MB)',
-      capacity: '8MB',
-      used: '3.2MB',
-      saves: [
-        {
-          game: 'God of War',
-          icon: '⚡',
-          progress: '34%',
-          playTime: '12h 45m',
-          date: '2005.03.22',
-          description: 'Kratos seeks revenge'
-        },
-        {
-          game: 'Shadow of the Colossus',
-          icon: '🏛️',
-          progress: '23%',
-          playTime: '8h 12m',
-          date: '2005.10.18',
-          description: '4 colossi defeated'
-        },
-        {
-          game: 'Ratchet & Clank',
-          icon: '🔧',
-          progress: '67%',
-          playTime: '34h 23m',
-          date: '2002.11.04',
-          description: 'Planet Pokitaru'
         }
       ]
     }

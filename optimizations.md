@@ -271,19 +271,14 @@ const getSidebarThemeClass = (objectType) => {
 - **Code Reduction**: Removed 70+ lines of inline styles
 
 ### Next Steps for Further CLS Improvements
-1. **Font Loading**: Add `<link rel="preload">` for Google Fonts
+
 2. **Conditional Rendering**: Reserve space for appearing/disappearing elements
 3. **Dynamic Classes**: Replace remaining conditional Tailwind classes
 4. **Skeleton Loaders**: Add placeholders during component loading
 
-This optimization demonstrates that massive performance gains can be achieved by moving runtime calculations to compile-time CSS classes, a fundamental principle of performant web applications.
-
----
-
 ## 4. Shimmer Animation CLS Fix
-
 ### Problem
-Chrome timeline shimmer animation using `left` property caused 217 layout shifts (95% of total CLS).
+Chrome timeline shimmer animation using `left` property caused 78 layout shifts
 
 ### Solution
 Replaced position-based animation with GPU-accelerated transforms:
@@ -307,6 +302,6 @@ transform: translateX(-100%);
 
 ### Results
 - **CLS**: 0.64 → 0.03 (95% improvement, now "Good")
-- **Layout shifts**: 217 → 1 shift
+- **Layout shifts**: 78 → 1 shift
 - **Visual**: Identical shimmer effect
 - **Code changes**: 4 lines

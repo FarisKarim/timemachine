@@ -137,7 +137,7 @@ const PS2MemoryVault = ({ memories, currentMemory, onMemoryChange }) => {
           </div>
         </div>
         
-        <p className="text-white/90 text-sm leading-relaxed mb-4">
+        <p className="text-white/90 text-sm leading-relaxed mb-4 font-mono">
           {memories[currentMemory].content}
         </p>
         

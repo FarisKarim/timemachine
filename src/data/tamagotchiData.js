@@ -86,11 +86,6 @@ export const tamagotchiData = {
       timestamp: "September 1997"
     },
     {
-      title: "Keychain Companion",
-      content: "Clipped to every backpack, jingling with every step. Some kids had five or six dangling like trophies of virtual parenthood.",
-      timestamp: "Holiday Season 1997"
-    },
-    {
       title: "The Great Reset",
       content: "The heartbreak of coming home to find your beloved digital pet had 'passed away' because you forgot to pause it during school.",
       timestamp: "October 1997"
@@ -102,18 +97,8 @@ export const tamagotchiData = {
     },
     {
       title: "Battery Life Anxiety",
-      content: "Watching that battery icon like a hawk, begging mom for new batteries because your Tamagotchi's life depended on it.",
+      content: "Begging mom for new batteries because your Tamagotchi's life depended on it. No warning when they died - just sudden silence.",
       timestamp: "Winter 1997"
-    },
-    {
-      title: "The Dinner Table Ban",
-      content: "Got grounded for a week after bringing it to grandma's birthday dinner. 'But it'll DIE!' wasn't a valid excuse.",
-      timestamp: "November 1997"
-    },
-    {
-      title: "Digital Pet Cemetery",
-      content: "Drew little tombstones in my diary for every Tamagotchi that passed. RIP Blob, age 14 days. You were loved.",
-      timestamp: "December 1997"
     },
     {
       title: "Secret Sound Settings",
@@ -123,22 +108,12 @@ export const tamagotchiData = {
     {
       title: "The Connection Era",
       content: "When V3 came out with infrared connection, spent hours trying to mate Tamagotchis with friends. Digital matchmaking!",
-      timestamp: "2004"
+      timestamp: "2006"
     },
     {
       title: "Pause Button Discovery",
       content: "Life changed forever when someone discovered you could pause by going to the clock screen. School days were saved!",
       timestamp: "October 1997"
-    },
-    {
-      title: "Bedtime Negotiations",
-      content: "'Just five more minutes, I need to put it to sleep!' Convinced parents that digital pets had bedtimes too.",
-      timestamp: "Summer 1997"
-    },
-    {
-      title: "The Poop Incident",
-      content: "Teacher confiscated it during math test. Returned it after class surrounded by digital poop. Poor Mametchi!",
-      timestamp: "February 1998"
     }
   ],
   
