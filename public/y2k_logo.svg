@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Y2K neon chrome logo">
+  <defs>
+    <radialGradient id="y2k-bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0%"  stop-color="#2ad4ff"/>
+      <stop offset="35%" stop-color="#6c3cff"/>
+      <stop offset="70%" stop-color="#1b0d4a"/>
+      <stop offset="100%" stop-color="#06020f"/>
+    </radialGradient>
+    <linearGradient id="y2k-chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f7fbff"/>
+      <stop offset="12%"  stop-color="#bcd6ff"/>
+      <stop offset="28%"  stop-color="#ffffff"/>
+      <stop offset="50%"  stop-color="#7aa0ff"/>
+      <stop offset="72%"  stop-color="#e8f0ff"/>
+      <stop offset="100%" stop-color="#b3c7ff"/>
+    </linearGradient>
+    <linearGradient id="y2k-neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#00eaff"/>
+      <stop offset="50%"  stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#00eaff"/>
+    </linearGradient>
+    <filter id="y2k-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="y2k-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" seed="2"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.08"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="y2k-scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="4" height="1" fill="#fff" opacity="0.06"/>
+    </pattern>
+    <symbol id="y2k-star" viewBox="-20 -20 40 40">
+      <path d="M0,-18 L3,-3 L18,0 L3,3 L0,18 L-3,3 L-18,0 L-3,-3 Z" fill="white"/>
+    </symbol>
+    <style>
+      @keyframes sweep {
+        0%   { stroke-dashoffset: 0;   }
+        100% { stroke-dashoffset: -800;}
+      }
+    </style>
+  </defs>
+  <rect width="1200" height="600" fill="url(#y2k-bg)"/>
+  <g filter="url(#y2k-glow)" opacity="0.8">
+    <circle cx="600" cy="320" r="220" fill="none" stroke="url(#y2k-neon)" stroke-width="10"/>
+    <ellipse cx="600" cy="320" rx="360" ry="120" fill="none" stroke="url(#y2k-neon)" stroke-width="6" opacity="0.6"/>
+  </g>
+  <use href="#y2k-star" x="270" y="140" transform="scale(0.7)" opacity="0.9"/>
+  <use href="#y2k-star" x="950" y="110" transform="scale(0.5) rotate(25)"/>
+  <use href="#y2k-star" x="1030" y="360" transform="scale(0.6) rotate(-10)" opacity="0.8"/>
+  <use href="#y2k-star" x="190" y="380" transform="scale(0.5)" opacity="0.7"/>
+  <g transform="translate(0,10)">
+    <text x="50%" y="55%" text-anchor="middle"
+          font-family="Impact, 'Arial Black', system-ui, sans-serif"
+          font-size="200"
+          fill="none"
+          stroke="url(#y2k-neon)"
+          stroke-width="10"
+          stroke-linejoin="round"
+          style="stroke-dasharray: 80 720; animation: sweep 6s linear infinite;">
+      Y2K
+    </text>
+    <text x="50%" y="55%" text-anchor="middle"
+          font-family="Impact, 'Arial Black', system-ui, sans-serif"
+          font-size="200"
+          fill="url(#y2k-chrome)"
+          filter="url(#y2k-glow)">
+      Y2K
+    </text>
+    <rect x="260" y="250" width="680" height="40" fill="#fff" opacity="0.18" rx="20" filter="url(#y2k-glow)"/>
+  </g>
+  <g opacity="0.25" transform="translate(0, 380)">
+    <rect x="0" y="0" width="1200" height="220" fill="none" stroke="#c9a6ff" stroke-width="1"/>
+    <path d="M100,0 V220 M200,0 V220 M300,0 V220 M400,0 V220 M500,0 V220
+             M600,0 V220 M700,0 V220 M800,0 V220 M900,0 V220 M1000,0 V220 M1100,0 V220"
+          stroke="#c9a6ff" stroke-width="1" />
+    <path d="M0,30 H1200 M0,60 H1200 M0,90 H1200 M0,120 H1200 M0,150 H1200 M0,180 H1200 M0,210 H1200"
+          stroke="#c9a6ff" stroke-width="1" />
+  </g>
+  <rect width="1200" height="600" fill="url(#y2k-scan)"/>
+  <rect width="1200" height="600" filter="url(#y2k-grain)" opacity="0.25"/>
+</svg>

@@ -11,11 +11,11 @@ const MemoScene = memo(Scene, (prevProps, nextProps) => {
   });
   
   if (Object.keys(changed).length > 0) {
-    console.log('🔍 MemoScene props changed:', changed);
+    // console.log('🔍 MemoScene props changed:', changed);
     return false; // Re-render
   }
   
-  console.log('✋ MemoScene blocked re-render - no prop changes');
+  // console.log('✋ MemoScene blocked re-render - no prop changes');
   return true; // Block re-render
 });
 import { GameBoyMemoryCapsule } from './components/ui/GameBoyMemoryCapsule';
@@ -30,7 +30,7 @@ import { nostalgicObjects } from './data/objects';
 import './App.css';
 
 function App() {
-  console.log('📱 App RE-RENDER - checking if Scene should re-render too...');
+  // console.log('📱 App RE-RENDER - checking if Scene should re-render too...');
   
   const [selectedObject, setSelectedObject] = useState(null);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
@@ -66,11 +66,11 @@ function App() {
     setIsZoomedIn(true);
     playSound('click');
     setTimeout(() => playSound('object', object.id), 300);
-    console.log('Clicked object:', object.name);
+    // console.log('Clicked object:', object.name);
   }, [playSound]);
 
   const handleGameSelect = (game) => {
-    console.log('Selected game:', game.title);
+    // console.log('Selected game:', game.title);
     // Future: Could trigger additional animations or effects
   };
 

@@ -14,13 +14,13 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
   const selectedObject = selectedObjectId ? nostalgicObjects.find(obj => obj.id === selectedObjectId) : null;
   
   // Performance logging - see when Scene actually re-renders
-  console.log('🎬 Scene RE-RENDER:', {
-    selectedObjectId,
-    isZoomedIn,
-    isMobile,
-    selectedIMacColor,
-    timestamp: Date.now()
-  });
+  // console.log('🎬 Scene RE-RENDER:', {
+  //   selectedObjectId,
+  //   isZoomedIn,
+  //   isMobile,
+  //   selectedIMacColor,
+  //   timestamp: Date.now()
+  // });
   useEffect(() => {
     // Preload all models
     preloadModels();
@@ -61,8 +61,8 @@ export const Scene = ({ onObjectClick, scrollProgressRef, selectedObjectId, isZo
           />
         )}
         {/* Performance Monitors */}
-        <Stats showPanel={0} className="stats-monitor" />
-        <Perf position="bottom-left" />
+        {/* <Stats showPanel={0} className="stats-monitor" /> */}
+        {/* <Perf position="bottom-left" /> */}
         
         <Suspense fallback={null}>
           <Camera 

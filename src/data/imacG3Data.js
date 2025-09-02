@@ -108,34 +108,16 @@ export const imacMemories = [
     emotion: 'nostalgic'
   },
   {
-    title: 'Dial-Up Symphony',
-    content: 'The melodic screech of connecting to the internet, followed by "Get off the computer, I need the phone!"',
-    category: 'internet',
-    emotion: 'frustrated'
-  },
-  {
-    title: 'Burning Mix CDs',
-    content: 'Carefully curating 18 songs to fit on a 700MB CD, complete with custom Sharpie artwork.',
-    category: 'music',
-    emotion: 'creative'
-  },
-  {
     title: 'Flash Game Marathon',
     content: 'Waiting 20 minutes for a Flash game to load on Newgrounds, only for it to crash halfway through.',
     category: 'gaming',
-    emotion: 'patient'
-  },
-  {
-    title: 'AIM Away Messages',
-    content: 'Crafting the perfect angsty away message with ~*~decorative~*~ symbols and song lyrics.',
-    category: 'social',
-    emotion: 'expressive'
+    emotion: 'gaming'
   },
   {
     title: 'Encyclopedia on CD',
     content: 'The magic of having an entire encyclopedia on one CD-ROM, complete with grainy videos.',
     category: 'learning',
-    emotion: 'amazed'
+    emotion: 'learning'
   }
 ];
 
